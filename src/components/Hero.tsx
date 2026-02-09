@@ -2,13 +2,14 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServiceTicker from "./ServiceTicker";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg pt-20">
-      {/* Radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-secondary/5 blur-[100px] pointer-events-none" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Hero background image */}
+      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <motion.div
