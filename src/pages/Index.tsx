@@ -3,13 +3,12 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import WhyUs from "@/components/WhyUs";
-import BookingForm from "@/components/BookingForm";
 import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const [bookingOpen, setBookingOpen] = useState(false);
-
-  const openBooking = () => setBookingOpen(true);
+  const navigate = useNavigate();
+  const openBooking = () => navigate("/booking");
 
   return (
     <div className="min-h-screen bg-background">
@@ -18,7 +17,6 @@ const Index = () => {
       <Services onBookClick={openBooking} />
       <WhyUs />
       <Footer />
-      <BookingForm open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 };
