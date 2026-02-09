@@ -7,9 +7,8 @@ import heroBg from "@/assets/hero-bg.jpg";
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Hero background image */}
-      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background pointer-events-none" />
+      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+      <div className="absolute inset-0 bg-[hsl(222,47%,11%)]/70 pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <motion.div
@@ -17,7 +16,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-mono text-primary mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-mono text-white mb-8">
             <Sparkles size={14} />
             AI-Powered Digital Solutions
           </div>
@@ -27,18 +26,18 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6"
+          className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6 text-white"
         >
           We Build the Future
           <br />
-          <span className="text-gradient">with AI</span>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-500">with AI</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground mb-10"
+          className="mx-auto max-w-2xl text-lg sm:text-xl text-white/70 mb-10"
         >
           Fetadify infuses artificial intelligence into every service we deliver — 
           from software engineering to blockchain, web design to data analytics. 
@@ -61,7 +60,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           <Button
             variant="outline"
             size="lg"
-            className="border-border text-foreground hover:bg-muted h-12 px-8"
+            className="border-white/30 text-white hover:bg-white/10 h-12 px-8"
             asChild
           >
             <a href="#services">Explore Services</a>
