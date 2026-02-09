@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServiceTicker from "./ServiceTicker";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
