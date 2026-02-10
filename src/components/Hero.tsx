@@ -3,13 +3,35 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServiceTicker from "./ServiceTicker";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.mp4";
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
     <section className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 sm:pt-20 sm:pb-20">
-      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-      <div className="absolute inset-0 bg-[hsl(222,47%,11%)]/70 pointer-events-none" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={heroBg} type="video/mp4" />
+        </video>
+        {/* Pulsing Glow Overlay */}
+        <motion.div 
+          className="absolute inset-0 opacity-40 bg-gradient-to-br from-blue-500/20 via-transparent to-purple-500/20 mix-blend-overlay"
+          animate={{ 
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+        />
+        <div className="absolute inset-0 bg-[hsl(222,47%,11%)]/60 backdrop-blur-[2px]" />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <motion.div
