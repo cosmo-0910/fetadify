@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
   const [open, setOpen] = useState(false);
@@ -15,7 +16,7 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="/" className="flex items-center gap-2">
-          <img src="/src/assets/logo.png" alt="Fetadify Logo" className="h-10 w-auto" />
+          <img src={logo} alt="Fetadify Logo" className="h-10 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">

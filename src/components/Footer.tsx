@@ -2,11 +2,13 @@ import { Github, Twitter, Linkedin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const [services, setServices] = useState<{ id: string, title: string }[]>([]);
 
   useEffect(() => {
+    // ... (logic remains same)
     const fetchServices = async () => {
       const { data } = await supabase
         .from('services')
@@ -28,7 +30,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <a href="/" className="flex items-center gap-2">
-              <img src="/src/assets/logo.png" alt="Fetadify Logo" className="h-[6.25rem] w-auto" />
+              <img src={logo} alt="Fetadify Logo" className="h-[6.25rem] w-auto" />
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               Pioneering the next generation of digital solutions by infusing artificial intelligence into every line of code.
