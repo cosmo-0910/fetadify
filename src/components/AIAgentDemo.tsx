@@ -1,15 +1,11 @@
+import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Bot, User, Sparkles, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const mockResponses = [
-  "I've analyzed your current infrastructure. Integrating custom RAG (Retrieval-Augmented Generation) could reduce search latency by 45%.",
-  "Based on your requirements, a fine-tuned Llama 3 model would provide the best balance of performance and cost efficiency.",
-  "I can automate your lead qualification process using sentiment analysis and intent detection models. Would you like to see a prototype?",
-  "Our predictive maintenance models can identify potential system failures up to 72 hours before they occur.",
-  "AI integration isn't just about bots. It's about data-driven decision making at every level of your organization."
-];
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import { v4 as uuidv4 } from "uuid";
 
 const AIAgentDemo = () => {
   const [messages, setMessages] = useState([
@@ -17,6 +13,18 @@ const AIAgentDemo = () => {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [sessionId] = useState(() => {
+    const saved = localStorage.getItem('ai_session_id');
+    if (saved) return saved;
+    const newId = uuidv4();
+    localStorage.setItem('ai_session_id', newId);
+    return newId;
+  });
+
+  const [step, setStep] = useState<'Init' | 'AskingName' | 'AskingEmail' | 'Chatting'>('Init');
+  const [customerName, setCustomerName] = useState(() => localStorage.getItem('customer_name') || "");
+  const [customerEmail, setCustomerEmail] = useState(() => localStorage.getItem('customer_email') || "");
+  
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,26 +33,114 @@ const AIAgentDemo = () => {
     }
   }, [messages, isTyping]);
 
-  const handleSend = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isTyping) return;
+  useEffect(() => {
+    if (customerName && customerEmail) {
+      setStep('Chatting');
+    }
+  }, [customerName, customerEmail]);
 
-    const userMsg = input.trim();
-    setMessages(prev => [...prev, { type: 'user', text: userMsg }]);
-    setInput("");
+  const saveMessageToSupabase = async (text: string, type: 'user' | 'bot', status: 'AI' | 'Human Needed' = 'AI') => {
+    try {
+      await supabase.from('messages').insert([{
+        session_id: sessionId,
+        sender_name: type === 'user' ? (customerName || 'Visitor') : 'FetadBot',
+        sender_email: type === 'user' ? (customerEmail || 'visitor@anon.com') : 'ai@fetadify.ai',
+        message_content: text,
+        status,
+        is_ai_response: type === 'bot',
+        timestamp: new Date().toISOString()
+      }]);
+    } catch (err) {
+      console.error("Failed to sync message:", err);
+    }
+  };
+
+  const processAIResponse = async (userMsg: string) => {
     setIsTyping(true);
+    
+    // 1. Check for custom replies in Supabase
+    try {
+      const { data: customReplies } = await supabase
+        .from('ai_replies')
+        .select('*');
+      
+      const match = customReplies?.find(r => userMsg.toLowerCase().includes(r.keyword.toLowerCase()));
+      
+      if (match) {
+        setTimeout(async () => {
+          setMessages(prev => [...prev, { type: 'bot', text: match.response_text }]);
+          await saveMessageToSupabase(match.response_text, 'bot');
+          setIsTyping(false);
+        }, 1000);
+        return;
+      }
+    } catch (err) {
+      console.error("Custom reply check failed:", err);
+    }
 
-    // Simulate AI thinking and replying
-    setTimeout(() => {
+    // 2. Default mock responses if no match
+    setTimeout(async () => {
+      const mockResponses = [
+        "I've analyzed your current infrastructure. Integrating custom RAG could reduce search latency by 45%.",
+        "Based on your requirements, a fine-tuned Llama 3 model would provide the best balance of performance and cost efficiency.",
+        "I can automate your lead qualification process using sentiment analysis. Would you like to see a prototype?",
+        "Our predictive maintenance models can identify potential failures up to 72 hours before they occur."
+      ];
       const randomResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
       setMessages(prev => [...prev, { type: 'bot', text: randomResponse }]);
+      await saveMessageToSupabase(randomResponse, 'bot');
       setIsTyping(false);
     }, 1500);
   };
 
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isTyping) return;
+
+    const val = input.trim();
+    setMessages(prev => [...prev, { type: 'user', text: val }]);
+    setInput("");
+
+    if (step === 'Init') {
+      await saveMessageToSupabase(val, 'user');
+      setIsTyping(true);
+      setTimeout(() => {
+        const msg = "I'd love to help! Before we continue, could you please tell me your name?";
+        setMessages(prev => [...prev, { type: 'bot', text: msg }]);
+        setStep('AskingName');
+        setIsTyping(false);
+      }, 800);
+    } 
+    else if (step === 'AskingName') {
+      setCustomerName(val);
+      localStorage.setItem('customer_name', val);
+      setIsTyping(true);
+      setTimeout(() => {
+        const msg = `Thanks ${val}! And what's your email address so we can follow up if needed?`;
+        setMessages(prev => [...prev, { type: 'bot', text: msg }]);
+        setStep('AskingEmail');
+        setIsTyping(false);
+      }, 800);
+    } 
+    else if (step === 'AskingEmail') {
+      setCustomerEmail(val);
+      localStorage.setItem('customer_email', val);
+      setStep('Chatting');
+      setIsTyping(true);
+      setTimeout(() => {
+        const msg = "Perfect! I've got that. Now, how can I help you with your AI innovation today?";
+        setMessages(prev => [...prev, { type: 'bot', text: msg }]);
+        setIsTyping(false);
+      }, 800);
+    } 
+    else {
+      await saveMessageToSupabase(val, 'user', val.toLowerCase().includes('agent') || val.toLowerCase().includes('human') ? 'Human Needed' : 'AI');
+      processAIResponse(val);
+    }
+  };
+
   return (
     <section id="demo" className="py-28 px-6 bg-background relative overflow-hidden">
-      {/* Background Decorative Elements */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -92,7 +188,6 @@ const AIAgentDemo = () => {
             className="relative"
           >
             <div className="relative z-10 w-full max-w-md mx-auto aspect-[4/5] bg-card border border-border rounded-3xl shadow-2xl overflow-hidden flex flex-col">
-              {/* Header */}
               <div className="px-6 py-4 border-b border-border bg-secondary/10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
@@ -107,7 +202,6 @@ const AIAgentDemo = () => {
                 </div>
               </div>
 
-              {/* Chat Area */}
               <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
                 <AnimatePresence>
                   {messages.map((msg, i) => (
@@ -144,14 +238,17 @@ const AIAgentDemo = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Input Area */}
               <form onSubmit={handleSend} className="p-4 border-t border-border bg-secondary/5">
                 <div className="relative">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask about AI integration..."
+                    placeholder={
+                      step === 'AskingName' ? "Type your name..." :
+                      step === 'AskingEmail' ? "Type your email..." :
+                      "Ask about AI integration..."
+                    }
                     className="w-full bg-background border border-border rounded-xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-sm"
                   />
                   <button
@@ -164,8 +261,6 @@ const AIAgentDemo = () => {
                 </div>
               </form>
             </div>
-            
-            {/* Glossy Overlay/Reflection */}
             <div className="absolute inset-0 z-0 bg-gradient-to-tr from-primary/10 to-transparent blur-3xl opacity-50 translate-x-10 translate-y-10 rounded-full" />
           </motion.div>
         </div>

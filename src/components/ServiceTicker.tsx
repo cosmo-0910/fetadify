@@ -1,23 +1,26 @@
 import { motion } from "framer-motion";
-
-const services = [
-  "AI Software Development",
-  "AI Web Design",
-  "AI Blockchain Solutions",
-  "AI Mobile Apps",
-  "AI Data Analytics",
-  "AI Cloud Architecture",
-  "AI Cybersecurity",
-  "AI DevOps",
-  "AI UX/UI Design",
-  "AI E-Commerce",
-  "AI Machine Learning",
-  "AI Automation",
-  "AI API Integration",
-  "AI SaaS Products",
-];
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 const ServiceTicker = () => {
+  const [services, setServices] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      const { data } = await supabase
+        .from('services')
+        .select('title')
+        .order('display_order', { ascending: true });
+      
+      if (data) {
+        setServices(data.map(s => s.title));
+      }
+    };
+    fetchServices();
+  }, []);
+
+  if (services.length === 0) return null;
+
   return (
     <div className="relative overflow-hidden py-4">
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[hsl(222,47%,11%)]/70 to-transparent z-10" />

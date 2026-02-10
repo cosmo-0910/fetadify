@@ -1,0 +1,62 @@
+import { Link, useLocation } from "react-router-dom";
+import { 
+  LayoutDashboard, 
+  Briefcase, 
+  FolderKanban, 
+  MessageSquare, 
+  Users, 
+  CalendarCheck,
+  LogOut,
+  Settings
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const navigation = [
+  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Services', href: '/admin/services', icon: Briefcase },
+  { name: 'Projects', href: '/admin/projects', icon: FolderKanban },
+  { name: 'AI Replies', href: '/admin/replies', icon: MessageSquare },
+  { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
+  { name: 'Users', href: '/admin/users', icon: Users },
+  { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
+];
+
+export const AdminSidebar = () => {
+  const location = useLocation();
+
+  return (
+    <div className="flex h-full w-64 flex-col bg-card border-r border-border">
+      <div className="flex h-16 items-center px-6 border-b border-border">
+        <Link to="/admin" className="flex items-center gap-2 font-bold text-xl">
+          <span className="text-primary">Admin</span>Hub
+        </Link>
+      </div>
+      <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
+        {navigation.map((item) => {
+          const isActive = location.pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              to={item.href}
+              className={cn(
+                "group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                isActive 
+                  ? "bg-primary text-primary-foreground" 
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              )}
+            >
+              <item.icon className={cn("mr-3 h-5 w-5", isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-foreground")} />
+              {item.name}
+            </Link>
+          );
+        })}
+      </nav>
+      <div className="p-4 border-t border-border">
+        <button className="flex w-full items-center px-3 py-2 text-sm font-medium text-destructive hover:bg-destructive/10 rounded-md transition-colors">
+          <LogOut className="mr-3 h-5 w-5" />
+          Logout
+        </button>
+      </div>
+    </div>
+  );
+};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,36 +6,56 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-
-const serviceOptions = [
-  "AI Software Development",
-  "AI Web Design",
-  "AI Blockchain Solutions",
-  "AI Mobile Apps",
-  "AI Data Analytics",
-  "AI Cloud Architecture",
-  "AI Cybersecurity",
-  "AI Automation",
-  "AI UX/UI Design",
-  "AI E-Commerce",
-  "Machine Learning",
-  "AI API Integration",
-];
+import { supabase } from "@/lib/supabase";
 
 const budgetOptions = ["Under $5K", "$5K - $15K", "$15K - $50K", "$50K+", "Not sure yet"];
 
 const Booking = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [services, setServices] = useState<{ id: string, title: string }[]>([]);
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    serviceId: '',
+    budget: '',
+    details: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    const fetchServices = async () => {
+      const { data } = await supabase.from('services').select('id, title').order('title');
+      setServices(data || []);
+    };
+    fetchServices();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      const { error } = await supabase.from('bookings').insert([{
+        customer_name: formData.name,
+        customer_email: formData.email,
+        service_id: formData.serviceId,
+        booking_date: new Date().toISOString(),
+        status: 'Pending'
+      }]);
+
+      if (error) throw error;
+
       setSubmitted(true);
       toast.success("Booking submitted! We'll reach out within 24 hours.");
-    }, 1200);
+    } catch (error: any) {
+      toast.error("Error submitting booking: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,42 +105,65 @@ const Booking = () => {
             <div className="grid sm:grid-cols-2 gap-5">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Full Name *</label>
-                <Input name="name" placeholder="John Doe" required />
+                <Input 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                  placeholder="John Doe" 
+                  required 
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Email Address *</label>
-                <Input name="email" type="email" placeholder="john@company.com" required />
+                <Input 
+                  value={formData.email} 
+                  onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                  type="email" 
+                  placeholder="john@company.com" 
+                  required 
+                />
               </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-5">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Company</label>
-                <Input name="company" placeholder="Your company name" />
+                <Input 
+                  value={formData.company} 
+                  onChange={(e) => setFormData({...formData, company: e.target.value})} 
+                  placeholder="Your company name" 
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Phone</label>
-                <Input name="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                <Input 
+                  value={formData.phone} 
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})} 
+                  type="tel" 
+                  placeholder="+1 (555) 000-0000" 
+                />
               </div>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-5">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Service *</label>
-                <Select required>
+                <Select 
+                  onValueChange={(val) => setFormData({...formData, serviceId: val})} 
+                  required
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
                   <SelectContent>
-                    {serviceOptions.map((s) => (
-                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    {services.map((s) => (
+                      <SelectItem key={s.id} value={s.title}>{s.title}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Budget Range</label>
-                <Select>
+                <Select onValueChange={(val) => setFormData({...formData, budget: val})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select budget" />
                   </SelectTrigger>
@@ -136,7 +179,8 @@ const Booking = () => {
             <div className="space-y-2">
               <label className="text-sm font-medium">Project Details *</label>
               <Textarea
-                name="details"
+                value={formData.details}
+                onChange={(e) => setFormData({...formData, details: e.target.value})}
                 placeholder="Describe your project, goals, timeline, and any specific requirements..."
                 required
                 className="min-h-[140px]"

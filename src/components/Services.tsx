@@ -1,25 +1,45 @@
 import { motion } from "framer-motion";
-import { 
-  Code, Globe, Blocks, Smartphone, BarChart3, Cloud, 
-  Shield, Workflow, Palette, ShoppingCart, Brain, Zap 
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import * as LucideIcons from "lucide-react";
+import { HelpCircle } from "lucide-react";
 
-const services = [
-  { icon: Code, title: "AI Software Development", desc: "Custom software infused with intelligent algorithms for smarter, faster solutions." },
-  { icon: Globe, title: "AI Web Design", desc: "Websites that adapt, learn, and deliver personalized user experiences through AI." },
-  { icon: Blocks, title: "AI Blockchain", desc: "Smart contracts and decentralized apps powered by AI-driven security and optimization." },
-  { icon: Smartphone, title: "AI Mobile Apps", desc: "Native & cross-platform mobile apps with built-in AI capabilities." },
-  { icon: BarChart3, title: "AI Data Analytics", desc: "Transform raw data into actionable insights with machine learning pipelines." },
-  { icon: Cloud, title: "AI Cloud Architecture", desc: "Scalable cloud infrastructure with AI-powered auto-scaling and cost optimization." },
-  { icon: Shield, title: "AI Cybersecurity", desc: "Threat detection and prevention powered by real-time AI monitoring." },
-  { icon: Workflow, title: "AI Automation", desc: "Automate repetitive processes with intelligent workflow engines." },
-  { icon: Palette, title: "AI UX/UI Design", desc: "Data-driven design decisions that maximize engagement and conversion." },
-  { icon: ShoppingCart, title: "AI E-Commerce", desc: "Smart product recommendations, dynamic pricing, and AI-driven storefronts." },
-  { icon: Brain, title: "Machine Learning", desc: "Custom ML models trained on your data for prediction and classification." },
-  { icon: Zap, title: "AI API Integration", desc: "Seamless integration of AI services into your existing tech stack." },
-];
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon_name: string;
+}
 
 const Services = ({ onBookClick }: { onBookClick: () => void }) => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('services')
+          .select('*')
+          .order('display_order', { ascending: true });
+
+        if (error) throw error;
+        setServices(data || []);
+      } catch (err) {
+        console.error("Error fetching services:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  const getIcon = (name: string) => {
+    const Icon = (LucideIcons as any)[name];
+    return Icon || HelpCircle;
+  };
+
   return (
     <section id="services" className="py-28 px-6">
       <div className="mx-auto max-w-7xl">
@@ -40,23 +60,32 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              onClick={onBookClick}
-              className="group cursor-pointer rounded-xl border border-border bg-card p-6 hover:border-primary/40 hover:glow-card transition-all duration-300"
-            >
-              <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3 text-primary group-hover:bg-primary/20 transition-colors">
-                <s.icon size={22} />
-              </div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-            </motion.div>
-          ))}
+          {loading ? (
+             Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-48 rounded-xl bg-secondary/20 animate-pulse border border-border" />
+            ))
+          ) : (
+            services.map((s, i) => {
+              const Icon = getIcon(s.icon_name);
+              return (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  onClick={onBookClick}
+                  className="group cursor-pointer rounded-xl border border-border bg-card p-6 hover:border-primary/40 hover:glow-card transition-all duration-300"
+                >
+                  <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3 text-primary group-hover:bg-primary/20 transition-colors">
+                    <Icon size={22} />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
+                </motion.div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>

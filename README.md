@@ -1,73 +1,108 @@
-# Welcome to your Lovable project
+# Fetadify 🚀
 
-## Project info
+Welcome to **Fetadify**, a cutting-edge platform designed to showcase and manage
+AI-driven projects, services, and community engagement. This project features a
+high-fidelity frontend and a robust admin dashboard for complete control over
+the platform's content.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## ✨ Key Features
 
-## How can I edit this code?
+### 🌐 Public Facing Platform
 
-There are several ways of editing your application.
+- **Service Listings**: Explore a curated collection of AI services.
+- **Project Showcase**: A portfolio of innovative AI projects.
+- **Booking System**: Streamlined service booking flow for clients.
+- **Responsive Design**: Premium, editorial-style UI that works seamlessly
+  across all devices.
 
-**Use Lovable**
+### 🛠 Admin Dashboard
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Dashboard Overview**: At-a-glance metrics and platform status.
+- **Service Management**: Create, update, and manage the services offered.
+- **Project Portfolio**: Manage the list of showcased AI innovations.
+- **Booking & Message Center**: Monitor client inquiries, bookings, and platform
+  messages.
+- **User Management**: Simple oversight of platform users and roles.
+- **AI-Powered Tools**: Integrated AI reply management and automation features.
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack
 
-**Use your preferred IDE**
+- **Frontend**: [React](https://reactjs.org/) +
+  [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) +
+  [Framer Motion](https://www.framer.com/motion/) (for animations)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/) (Radix UI primitives)
+- **Backend/Database**: [Supabase](https://supabase.com/)
+- **State Management**:
+  [TanStack Query (React Query)](https://tanstack.com/query/latest)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) +
+  [Zod](https://zod.dev/)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [npm](https://www.npmjs.com/) or [Bun](https://bun.sh/)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd ai-innovation-hub
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+3. **Set up environment variables:** Create a `.env` file in the root directory
+   and add your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   # or
+   bun dev
+   ```
+
+## 📁 Project Structure
+
+```text
+src/
+├── components/     # Reusable UI components (Shadcn + Custom)
+├── hooks/          # Custom React hooks (auth, etc.)
+├── lib/            # Utility libraries and Supabase client
+├── pages/          # Main application pages
+│   ├── admin/      # Admin dashboard screens
+│   └── ...         # Public pages (Booking, Services, etc.)
+├── test/           # Unit and integration tests
+├── App.tsx         # Main application component & routes
+└── main.tsx        # Application entry point
 ```
 
-**Edit a file directly in GitHub**
+## 📜 Available Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `npm run dev`: Starts the Vite development server.
+- `npm run build`: Builds the application for production.
+- `npm run lint`: Runs ESLint for code quality checks.
+- `npm run test`: Executes Vitest for testing.
+- `npm run preview`: Locally previews the production build.
 
-**Use GitHub Codespaces**
+## 🤝 Contributing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+We welcome contributions! Please feel free to open issues or submit pull
+requests to improve the platform.
 
-## What technologies are used for this project?
+## 📄 License
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is licensed under the MIT License.
