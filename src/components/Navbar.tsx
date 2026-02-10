@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
@@ -16,35 +16,44 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="/" className="flex items-center gap-2">
-          <img src={logo} alt="Fetadify Logo" className="h-10 w-auto" />
+          <img src={logo} alt="Fetadify Logo" className="h-8 md:h-10 w-auto transition-all" />
         </a>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="/services" className="hover:text-foreground transition-colors">Services</a>
-          <a href="/#why" className="hover:text-foreground transition-colors">Why Us</a>
-          <a href="/booking" className="hover:text-foreground transition-colors">Book</a>
-          <Button onClick={onBookClick} size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 glow-primary">
+          <a href="/services" className="hover:text-foreground transition-colors font-medium">Services</a>
+          <a href="/#why" className="hover:text-foreground transition-colors font-medium">Why Us</a>
+          <a href="/booking" className="hover:text-foreground transition-colors font-medium">Book</a>
+          <Button onClick={onBookClick} size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 glow-primary font-semibold">
             Get Started
           </Button>
         </div>
 
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-foreground p-2 -mr-2" onClick={() => setOpen(!open)}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {open && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="md:hidden border-t border-border bg-background px-6 py-4 space-y-4"
-        >
-          <a href="/services" className="block text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Services</a>
-          <a href="/#why" className="block text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Why Us</a>
-          <a href="/booking" className="block text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Book</a>
-          <Button onClick={() => { onBookClick(); setOpen(false); }} className="w-full bg-primary text-primary-foreground">Get Started</Button>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl px-6 py-8 space-y-6 overflow-hidden"
+          >
+            <div className="flex flex-col gap-6">
+              <a href="/services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Services</a>
+              <a href="/#why" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Why Us</a>
+              <a href="/booking" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Book</a>
+            </div>
+            <div className="pt-4 border-t border-border/50">
+              <Button onClick={() => { onBookClick(); setOpen(false); }} className="w-full bg-primary text-primary-foreground h-12 text-base font-semibold glow-primary">
+                Get Started
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

@@ -37,19 +37,19 @@ const Work = () => {
   }, []);
 
   return (
-    <section id="work" className="py-28 px-6 bg-secondary/5">
+    <section id="work" className="py-20 sm:py-28 px-6 bg-secondary/5">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+           viewport={{ once: true }}
+          className="text-center mb-12 sm:mb-16"
         >
           <p className="text-primary font-mono text-sm mb-3">SELECTED WORK</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
             Proven Results, <span className="text-gradient">Real Impact</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
             Explore how we've helped industry leaders transform their businesses through bespoke AI solutions.
           </p>
         </motion.div>

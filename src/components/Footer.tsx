@@ -28,9 +28,9 @@ const Footer = () => {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
-          <div className="space-y-6">
+          <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
             <a href="/" className="flex items-center gap-2">
-              <img src={logo} alt="Fetadify Logo" className="h-[6.25rem] w-auto" />
+              <img src={logo} alt="Fetadify Logo" className="h-20 md:h-[6.25rem] w-auto transition-all" />
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               Pioneering the next generation of digital solutions by infusing artificial intelligence into every line of code.
@@ -43,7 +43,7 @@ const Footer = () => {
           </div>
 
           {/* Links Column 1 */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Services</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
               {services.map((service) => (
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
 
           {/* Links Column 2 */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Company</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li><a href="/#demo" className="hover:text-primary transition-colors">AI Demo</a></li>
@@ -72,12 +72,12 @@ const Footer = () => {
           </div>
 
           {/* Newsletter Column */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Join the Waitlist</h4>
             <p className="text-sm text-muted-foreground mb-4">
               Get the latest AI insights and product updates delivered to your inbox.
             </p>
-            <form className="relative" onSubmit={(e) => e.preventDefault()}>
+            <form className="relative w-full max-w-sm" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
                 placeholder="Enter your email" 
@@ -93,11 +93,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-border flex flex-col items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
             © 2026 <span className="text-foreground font-semibold">Fetadify</span>. All rights reserved.
           </p>
-          <div className="flex gap-8 text-xs text-muted-foreground">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-xs text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-foreground transition-colors">Cookies</a>

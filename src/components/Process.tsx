@@ -26,19 +26,19 @@ const steps = [
 
 const Process = () => {
   return (
-    <section id="process" className="py-28 px-6 bg-secondary/5 overflow-hidden">
+    <section id="process" className="py-20 sm:py-28 px-6 bg-secondary/5 overflow-hidden">
       <div className="mx-auto max-w-7xl relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
         >
           <p className="text-primary font-mono text-sm mb-3">HOW WE WORK</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
             Our AI-First <span className="text-gradient">Methodology</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
             A streamlined approach to turning complex technical challenges into competitive advantages.
           </p>
         </motion.div>

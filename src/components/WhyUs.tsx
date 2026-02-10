@@ -9,17 +9,17 @@ const points = [
 ];
 
 const WhyUs = () => (
-  <section id="why" className="py-28 px-6 relative">
+  <section id="why" className="py-20 sm:py-28 px-6 relative">
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
     <div className="mx-auto max-w-5xl relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16"
       >
         <p className="text-primary font-mono text-sm mb-3">WHY FETADIFY</p>
-        <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">
           Built Different, <span className="text-gradient">Built Smarter</span>
         </h2>
       </motion.div>

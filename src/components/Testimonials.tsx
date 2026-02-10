@@ -27,16 +27,16 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-28 px-6 bg-background">
+    <section id="testimonials" className="py-20 sm:py-28 px-6 bg-background">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <p className="text-primary font-mono text-sm mb-3">TESTIMONIALS</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
             Trusted by <span className="text-gradient">Industry Leaders</span>
           </h2>
         </motion.div>

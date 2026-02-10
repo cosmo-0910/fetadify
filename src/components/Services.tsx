@@ -41,20 +41,20 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
   };
 
   return (
-    <section id="services" className="py-28 px-6">
+    <section id="services" className="py-20 sm:py-28 px-6">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <p className="text-primary font-mono text-sm mb-3">WHAT WE DO</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
             AI Infused Into <span className="text-gradient">Everything</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
             Every service we offer is enhanced by artificial intelligence — delivering smarter, faster, and more impactful results.
           </p>
         </motion.div>
