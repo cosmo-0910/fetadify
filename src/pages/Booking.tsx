@@ -75,7 +75,7 @@ const Booking = () => {
             Let's Build Something <span className="text-gradient">Incredible</span>
           </h1>
           <p className="text-muted-foreground text-lg mb-10 max-w-xl">
-            Fill out the form below and our AI team will review your project within 24 hours.
+            Fill out the form below and our Team will review your project within 24 hours.
           </p>
         </motion.div>
 
@@ -88,7 +88,7 @@ const Booking = () => {
             <CheckCircle size={64} className="mx-auto text-primary mb-6" />
             <h2 className="text-2xl font-bold mb-3">Booking Received!</h2>
             <p className="text-muted-foreground max-w-md mx-auto mb-8">
-              Our AI team will analyze your requirements and reach out within 24 hours with a tailored proposal.
+              Our Team will analyze your requirements and reach out within 24 hours with a tailored proposal.
             </p>
             <Button asChild className="bg-primary text-primary-foreground">
               <a href="/">Return Home</a>

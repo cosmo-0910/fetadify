@@ -8,12 +8,11 @@ const Footer = () => {
   const [services, setServices] = useState<{ id: string, title: string }[]>([]);
 
   useEffect(() => {
-    // ... (logic remains same)
     const fetchServices = async () => {
       const { data } = await supabase
         .from('services')
         .select('id, title')
-        .order('display_order', { ascending: true })
+        .order('title', { ascending: true })
         .limit(4);
       
       if (data) {
@@ -24,67 +23,59 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="border-t border-border bg-background pt-20 pb-10 px-6">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand Column */}
-          <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
-            <a href="/" className="flex items-center gap-2">
-              <img src={logo} alt="Fetadify Logo" className="h-20 md:h-[6.25rem] w-auto transition-all" />
+    <footer className="relative border-t border-white/5 bg-background overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      
+      <div className="mx-auto max-w-7xl pt-24 pb-12 px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+          <div className="space-y-8">
+            <a href="/" className="inline-block group">
+              <img src={logo} alt="Fetadify Logo" className="h-12 w-auto group-hover:scale-105 transition-transform duration-500" />
             </a>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Pioneering the next generation of digital solutions by infusing artificial intelligence into every line of code.
+            <p className="text-muted-foreground leading-relaxed">
+              Pioneering the next era of location intelligence through end-to-end geospatial engineering and custom AI strategies.
             </p>
-            <div className="flex gap-4 text-muted-foreground">
-              <a href="#" className="hover:text-primary transition-colors"><Twitter size={20} /></a>
-              <a href="#" className="hover:text-primary transition-colors"><Github size={20} /></a>
-              <a href="#" className="hover:text-primary transition-colors"><Linkedin size={20} /></a>
+            <div className="flex gap-5 text-muted-foreground">
+              <a href="#" className="hover:text-primary transition-all hover:-translate-y-1"><Twitter size={20} /></a>
+              <a href="#" className="hover:text-primary transition-all hover:-translate-y-1"><Github size={20} /></a>
+              <a href="#" className="hover:text-primary transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
             </div>
           </div>
 
-          {/* Links Column 1 */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Services</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
+          <div>
+            <h4 className="font-bold mb-8 text-sm uppercase tracking-[0.2em] text-foreground/50">Expertise</h4>
+            <ul className="space-y-4 text-sm font-medium">
               {services.map((service) => (
                 <li key={service.id}>
-                  <a href="/services" className="hover:text-primary transition-colors">{service.title}</a>
+                  <a href="/services" className="text-muted-foreground hover:text-primary transition-colors">{service.title}</a>
                 </li>
               ))}
-              {services.length === 0 && (
-                <>
-                  <li><a href="/services" className="hover:text-primary transition-colors">AI Software Development</a></li>
-                  <li><a href="/services" className="hover:text-primary transition-colors">AI Web Design</a></li>
-                </>
-              )}
             </ul>
           </div>
 
-          {/* Links Column 2 */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Company</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><a href="/#demo" className="hover:text-primary transition-colors">AI Demo</a></li>
-              <li><a href="/#work" className="hover:text-primary transition-colors">Success Stories</a></li>
-              <li><a href="/#why" className="hover:text-primary transition-colors">Why Fetadify</a></li>
-              <li><a href="/booking" className="hover:text-primary transition-colors">Book a Service</a></li>
+          <div>
+            <h4 className="font-bold mb-8 text-sm uppercase tracking-[0.2em] text-foreground/50">Ecosystem</h4>
+            <ul className="space-y-4 text-sm font-medium">
+              <li><a href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Spatial Blog</a></li>
+              <li><a href="/#work" className="text-muted-foreground hover:text-primary transition-colors">Our Work</a></li>
+              <li><a href="/booking" className="text-muted-foreground hover:text-primary transition-colors">Start Project</a></li>
+              <li><a href="/#why" className="text-muted-foreground hover:text-primary transition-colors">Philosophy</a></li>
             </ul>
           </div>
 
-          {/* Newsletter Column */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="font-bold mb-6 text-sm uppercase tracking-wider">Join the Waitlist</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              Get the latest AI insights and product updates delivered to your inbox.
+          <div className="glass p-8 rounded-[2rem] space-y-6">
+            <h4 className="font-bold text-sm uppercase tracking-[0.2em] text-primary">Intelligence Hub</h4>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Get the latest spatial insights and engineering breakthroughs delivered locally.
             </p>
-            <form className="relative w-full max-w-sm" onSubmit={(e) => e.preventDefault()}>
+            <form className="relative" onSubmit={(e) => e.preventDefault()}>
               <input 
                 type="email" 
-                placeholder="Enter your email" 
-                className="w-full bg-secondary/50 border border-border rounded-xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                placeholder="Email address" 
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30"
               />
               <button 
-                className="absolute right-2 top-1.5 p-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md shadow-primary/20"
+                className="absolute right-2 top-2 p-2.5 rounded-xl bg-primary text-primary-foreground hover:scale-105 transition-all glow-primary"
                 type="submit"
               >
                 <Send size={16} />
@@ -93,14 +84,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-border flex flex-col items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            © 2026 <span className="text-foreground font-semibold">Fetadify</span>. All rights reserved.
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] font-mono uppercase tracking-widest text-muted-foreground">
+          <p>
+            © 2026 <span className="text-foreground">Fetadify Systems</span>. Mapping the Future.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-xs text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-foreground transition-colors">Cookies</a>
+          <div className="flex flex-wrap justify-center gap-10">
+            <a href="#" className="hover:text-foreground transition-colors">Security</a>
+            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ const navigation = [
   { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
+  { name: 'Blog', href: '/admin/blog', icon: MessageSquare },
 ];
 
 export const AdminSidebar = () => {

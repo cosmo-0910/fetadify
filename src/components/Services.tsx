@@ -9,6 +9,7 @@ interface Service {
   title: string;
   description: string;
   icon_name: string;
+  features?: string[];
 }
 
 const Services = ({ onBookClick }: { onBookClick: () => void }) => {
@@ -40,52 +41,66 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
     return Icon || HelpCircle;
   };
 
+  if (loading) return null;
+
   return (
-    <section id="services" className="py-20 sm:py-28 px-6">
+    <section id="services" className="py-20 sm:py-32 px-6">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-16 sm:mb-24"
         >
-          <p className="text-primary font-mono text-sm mb-3">WHAT WE DO</p>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
-            AI Infused Into <span className="text-gradient">Everything</span>
+          <p className="text-primary font-mono text-sm mb-4 tracking-widest uppercase">Expertise</p>
+          <h2 className="text-4xl sm:text-6xl font-bold tracking-tight mb-6 text-foreground">
+            Our <span className="text-gradient">Core Services</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
-            Every service we offer is enhanced by artificial intelligence — delivering smarter, faster, and more impactful results.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            End-to-end geospatial engineering and custom software solutions designed for global scale.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {loading ? (
-             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-48 rounded-xl bg-secondary/20 animate-pulse border border-border" />
-            ))
-          ) : (
-            services.map((s, i) => {
-              const Icon = getIcon(s.icon_name);
-              return (
-                <motion.div
-                  key={s.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  onClick={onBookClick}
-                  className="group cursor-pointer rounded-xl border border-border bg-card p-6 hover:border-primary/40 hover:glow-card transition-all duration-300"
-                >
-                  <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3 text-primary group-hover:bg-primary/20 transition-colors">
-                    <Icon size={22} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, i) => {
+            const Icon = getIcon(service.icon_name);
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                onClick={onBookClick}
+                className="group cursor-pointer relative rounded-[2.5rem] glass p-10 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-primary/10 transition-colors" />
+                
+                <div className="relative z-10">
+                  <div className="mb-8 p-4 w-16 h-16 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 glow-primary flex items-center justify-center">
+                    <Icon size={28} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
-                </motion.div>
-              );
-            })
-          )}
+                  
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground leading-relaxed mb-8 line-clamp-4 group-hover:text-foreground/80 transition-colors">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-3">
+                    {service.features?.slice(0, 3).map((feature, idx) => (
+                      <li key={idx} className="flex items-center gap-2 text-sm text-foreground/70">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

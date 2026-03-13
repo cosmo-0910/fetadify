@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -34,7 +34,7 @@
     --input: 214 32% 91%;
     --ring: 217 91% 60%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 222 47% 11%;
@@ -45,6 +45,36 @@
     --sidebar-border: 214 32% 91%;
     --sidebar-ring: 217 91% 60%;
   }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 213 31% 91%;
+
+    --card: 222 47% 7%;
+    --card-foreground: 213 31% 91%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 213 31% 91%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 47% 12%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217 91% 60% / 0.15;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 47% 12%;
+    --input: 222 47% 12%;
+    --ring: 217 91% 60%;
+  }
 }
 
 @layer base {
@@ -53,30 +83,47 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    @apply bg-background text-foreground transition-colors duration-500 ease-in-out;
+    font-family: "Space Grotesk", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: "Space Grotesk", sans-serif;
+    letter-spacing: -0.02em;
   }
 
   code, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "JetBrains Mono", monospace;
   }
 }
 
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(217 91% 60%), hsl(200 95% 50%));
+    background-image: linear-gradient(
+      135deg,
+      hsl(217 91% 60%),
+      hsl(200 95% 50%)
+    );
   }
 
   .glow-primary {
-    box-shadow: 0 0 40px -10px hsl(217 91% 60% / 0.4);
+    box-shadow: 0 0 50px -12px hsl(217 91% 60% / 0.4);
   }
 
   .glow-card {
-    box-shadow: 0 0 30px -15px hsl(217 91% 60% / 0.15);
+    box-shadow: 0 0 40px -20px hsl(217 91% 60% / 0.15);
+  }
+
+  .glass {
+    @apply bg-background/40 backdrop-blur-2xl border border-white/10 shadow-xl shadow-black/5;
+  }
+
+  .glass-dark {
+    @apply bg-black/50 backdrop-blur-2xl border border-white/5 shadow-2xl;
+  }
+  
+  .glass-light {
+    @apply bg-white/70 backdrop-blur-2xl border border-black/5 shadow-xl;
   }
 }
