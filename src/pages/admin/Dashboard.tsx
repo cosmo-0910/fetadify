@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, FolderKanban, MessageSquare, CalendarCheck, Clock, User } from "lucide-react";
 import { format } from "date-fns";
+import { InvoiceModal } from "@/components/admin/InvoiceModal";
 
 const Dashboard = () => {
   const [stats, setStats] = useState([
@@ -66,9 +67,12 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <p className="text-muted-foreground">Welcome to the AI Innovation Hub control center.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <p className="text-muted-foreground">Welcome to the AI Innovation Hub control center.</p>
+        </div>
+        <InvoiceModal onSuccess={fetchDashboardData} />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

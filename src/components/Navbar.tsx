@@ -24,6 +24,7 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
 
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="/services" className="hover:text-foreground transition-colors font-medium">Services</a>
+          <a href="/pricing" className="hover:text-foreground transition-colors font-medium">Pricing</a>
           <a href="/blog" className="hover:text-foreground transition-colors font-medium">Blog</a>
           <a href="/#why" className="hover:text-foreground transition-colors font-medium">Why Us</a>
           <a href="/booking" className="hover:text-foreground transition-colors font-medium">Book</a>

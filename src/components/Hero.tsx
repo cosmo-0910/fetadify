@@ -14,14 +14,14 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           loop 
           muted 
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-100 dark:opacity-50 grayscale-0 dark:grayscale-[10%] transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover opacity-100 dark:opacity-80 grayscale-0 transition-opacity duration-1000"
         >
           <source src={heroBg} type="video/mp4" />
         </video>
         
         {/* Subtle Ethereal Glow */}
         <motion.div 
-          className="absolute inset-0 opacity-5 dark:opacity-10 bg-[radial-gradient(circle_at_50%_40%,var(--primary)_0%,transparent_60%)]"
+          className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_40%,var(--primary)_0%,transparent_60%)]"
           animate={{ 
             scale: [1, 1.1, 1],
           }}
@@ -32,12 +32,11 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           }}
         />
 
-        {/* Dense Vignette for Cleanliness - Hidden in Light Mode */}
-        <div className="absolute inset-0 hidden dark:block dark:bg-background/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,background_120%)] opacity-0 dark:opacity-70" />
+        {/* Dense Vignette for Cleanliness - Transparent in the middle */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,background_150%)] opacity-30 dark:opacity-50" />
         
-        {/* Bottom Fade - Reduced in Light Mode */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 dark:via-background/5 dark:to-background/90" />
+        {/* Bottom Fade - Very subtle to keep video visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/30 dark:to-background/70" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">

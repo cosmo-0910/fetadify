@@ -4,22 +4,31 @@ import {
   Briefcase, 
   FolderKanban, 
   MessageSquare, 
+  FileText,
   Users, 
   CalendarCheck,
   LogOut,
-  Settings
+  Settings,
+  BarChart3,
+  Mail,
+  LifeBuoy,
+  CreditCard
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+  { name: 'Orders/Pricing', href: '/admin/orders', icon: CreditCard },
   { name: 'Services', href: '/admin/services', icon: Briefcase },
-  { name: 'Projects', href: '/admin/projects', icon: FolderKanban },
-  { name: 'AI Replies', href: '/admin/replies', icon: MessageSquare },
-  { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
-  { name: 'Users', href: '/admin/users', icon: Users },
+  { name: 'Invoices', href: '/admin/invoices', icon: FileText },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
+  { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
+  { name: 'Support', href: '/admin/support', icon: LifeBuoy },
+  { name: 'Subscribers', href: '/admin/subscribers', icon: Mail },
   { name: 'Blog', href: '/admin/blog', icon: MessageSquare },
+  { name: 'Users', href: '/admin/users', icon: Users },
+  { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
 export const AdminSidebar = () => {

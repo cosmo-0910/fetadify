@@ -59,6 +59,7 @@ const Footer = () => {
               <li><a href="/blog" className="text-muted-foreground hover:text-primary transition-colors">Spatial Blog</a></li>
               <li><a href="/#work" className="text-muted-foreground hover:text-primary transition-colors">Our Work</a></li>
               <li><a href="/booking" className="text-muted-foreground hover:text-primary transition-colors">Start Project</a></li>
+              <li><a href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">Pricing Hub</a></li>
               <li><a href="/#why" className="text-muted-foreground hover:text-primary transition-colors">Philosophy</a></li>
             </ul>
           </div>
@@ -90,8 +91,8 @@ const Footer = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-10">
             <a href="#" className="hover:text-foreground transition-colors">Security</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+            <a href="/privacy" className="hover:text-foreground transition-colors">Privacy</a>
+            <a href="/terms" className="hover:text-foreground transition-colors">Terms</a>
           </div>
         </div>
       </div>
