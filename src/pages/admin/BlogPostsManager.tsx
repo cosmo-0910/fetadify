@@ -21,7 +21,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { Plus, Pencil, Trash2, ExternalLink, Eye, Loader2, Upload } from "lucide-react";
 
 interface Post {
@@ -241,7 +241,7 @@ const BlogPostsManager = () => {
               posts.map((post) => (
                 <TableRow key={post.id}>
                   <TableCell className="text-xs text-muted-foreground">
-                    {format(new Date(post.published_at), 'MMM dd, yyyy')}
+                    {formatSafeDate(post.published_at, 'MMM dd, yyyy')}
                   </TableCell>
                   <TableCell className="font-semibold">{post.title}</TableCell>
                   <TableCell>

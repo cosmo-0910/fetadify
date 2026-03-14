@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, FolderKanban, MessageSquare, CalendarCheck, Clock, User } from "lucide-react";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { InvoiceModal } from "@/components/admin/InvoiceModal";
 
 const Dashboard = () => {
@@ -109,9 +109,9 @@ const Dashboard = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-semibold">{msg.sender_name}</span>
+                        <span className="text-xs font-semibold">{msg.sender_name || 'Visitor'}</span>
                         <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                          <Clock size={10} /> {format(new Date(msg.timestamp), 'HH:mm')}
+                          <Clock size={10} /> {formatSafeDate(msg.timestamp, 'HH:mm')}
                         </span>
                       </div>
                       <p className="text-xs text-muted-foreground line-clamp-1">{msg.message_content}</p>

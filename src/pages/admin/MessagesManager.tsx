@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { MessageSquare, User, Smartphone, AlertCircle, CheckCircle2, History } from "lucide-react";
 
 interface Message {
@@ -187,7 +187,7 @@ const MessagesManager = () => {
                 >
                   <div className="flex justify-between items-start mb-1">
                     <span className="font-medium text-sm truncate max-w-[120px]">{msg.sender_name || 'Anonymous'}</span>
-                    <span className="text-[10px] text-muted-foreground">{format(new Date(msg.timestamp), 'HH:mm')}</span>
+                    <span className="text-[10px] text-muted-foreground">{formatSafeDate(msg.timestamp, 'HH:mm')}</span>
                   </div>
                   <p className="text-xs text-muted-foreground truncate mb-2">{msg.message_content}</p>
                   <div className="flex items-center justify-between">
@@ -246,7 +246,7 @@ const MessagesManager = () => {
                       </div>
                       <p>{msg.message_content}</p>
                       <span className="text-[9px] opacity-50 block mt-1 text-right">
-                        {format(new Date(msg.timestamp), 'HH:mm')}
+                        {formatSafeDate(msg.timestamp, 'HH:mm')}
                       </span>
                     </div>
                   </div>

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Activity, Globe, Monitor, Clock, Users, MousePointerClick, RefreshCw, AlertCircle, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { toast } from "sonner";
 
 interface VisitorAnalytics {
@@ -198,11 +198,11 @@ const AnalyticsManager = () => {
                       <TableCell>
                         <div className="flex flex-col">
                           <span className="text-xs font-bold">
-                            {format(new Date(visitor.created_at), 'MMM dd, yyyy')}
+                            {formatSafeDate(visitor.created_at, 'MMM dd, yyyy')}
                           </span>
                           <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                             <Clock className="w-3 h-3" />
-                            {format(new Date(visitor.created_at), 'HH:mm:ss')}
+                            {formatSafeDate(visitor.created_at, 'HH:mm:ss')}
                           </span>
                         </div>
                       </TableCell>

@@ -136,12 +136,12 @@ const OrdersManager = () => {
                   orders.map((order) => (
                     <TableRow key={order.id} className="hover:bg-primary/5 transition-colors">
                       <TableCell>
-                        <div className="font-bold text-sm tracking-tight">{order.full_name}</div>
-                        <div className="text-[10px] font-mono opacity-50">{order.email}</div>
+                        <div className="font-bold text-sm tracking-tight">{order.customer_name || 'Generic Client'}</div>
+                        <div className="text-[10px] font-mono opacity-50">{order.customer_email || order.email}</div>
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
-                          {order.service.split(',').map((s: string, i: number) => (
+                          {(order.service_id || 'Consultation').split(',').map((s: string, i: number) => (
                             <Badge key={i} variant="outline" className="text-[9px] font-bold border-primary/10 bg-primary/5">
                               {s.trim()}
                             </Badge>
@@ -190,7 +190,7 @@ const OrdersManager = () => {
           <DialogHeader>
             <DialogTitle className="font-bold uppercase tracking-tighter">Set Project Pricing</DialogTitle>
             <DialogDescription className="text-xs">
-              Defining financial constraints for {editingOrder?.full_name}
+              Defining financial constraints for {editingOrder?.customer_name}
             </DialogDescription>
           </DialogHeader>
 

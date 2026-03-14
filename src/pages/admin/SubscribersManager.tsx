@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Users, Download, Mail, Trash2, Send, RefreshCw, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { formatSafeDate } from "@/lib/utils";
 import { AdminNewsletterDialog } from "@/components/admin/AdminNewsletterDialog";
 
 const SubscribersManager = () => {
@@ -130,7 +131,7 @@ const SubscribersManager = () => {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground text-xs font-mono">
-                        {new Date(subscriber.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                        {formatSafeDate(subscriber.created_at, 'MMM dd, yyyy')}
                       </TableCell>
                       <TableCell className="text-right">
                         <Button 

@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { Calendar, User, Mail, MessageSquare } from "lucide-react";
 
 interface Booking {
@@ -131,7 +131,7 @@ const BookingsManager = () => {
                   <TableCell>
                     <div className="flex items-center gap-2 text-sm text-foreground/80">
                       <Calendar size={14} />
-                      {format(new Date(booking.booking_date), 'PPP p')}
+                      {formatSafeDate(booking.booking_date, 'PPP p')}
                     </div>
                   </TableCell>
                   <TableCell>

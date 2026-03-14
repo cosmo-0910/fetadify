@@ -9,15 +9,15 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { formatSafeDate } from "@/lib/utils";
 import { FileText, User, Mail, Calendar } from "lucide-react";
 import { InvoiceModal } from "@/components/admin/InvoiceModal";
 
 interface Invoice {
   id: string;
-  full_name: string;
-  email: string;
-  service: string;
+  customer_name: string;
+  customer_email: string;
+  service_id: string;
   status: string;
   created_at: string;
 }
@@ -87,21 +87,21 @@ const InvoicesManager = () => {
                     <div className="flex flex-col">
                       <span className="font-semibold flex items-center gap-2">
                         <User size={14} className="text-muted-foreground" />
-                        {invoice.full_name}
+                        {invoice.customer_name || 'Generic Client'}
                       </span>
                       <span className="text-xs text-muted-foreground flex items-center gap-2">
                         <Mail size={12} />
-                        {invoice.email}
+                        {invoice.customer_email || 'No email provided'}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm font-medium">{invoice.service}</span>
+                    <span className="text-sm font-medium">{invoice.service_id || 'Consultation'}</span>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2 text-sm text-foreground/80">
                       <Calendar size={14} />
-                      {format(new Date(invoice.created_at), 'PPP')}
+                      {formatSafeDate(invoice.created_at, 'PPP')}
                     </div>
                   </TableCell>
                   <TableCell>
