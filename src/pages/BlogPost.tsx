@@ -93,26 +93,43 @@ const BlogPost = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="text-center sm:text-left"
           >
-            <div className="inline-block bg-primary/10 text-primary text-[10px] font-bold uppercase px-3 py-1 rounded-full mb-6">
-              {post.category}
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-[11px] font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-8 border border-primary/20">
+              <Tag size={12} /> {post.category}
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight mb-8 leading-tight">
+            
+            <h1 className="text-5xl sm:text-7xl font-black tracking-tightest mb-10 leading-[1.1] text-balance">
               {post.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                  <User size={14} />
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-8 text-sm text-muted-foreground bg-secondary/30 p-6 rounded-3xl border border-border/50 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+                  <User size={18} className="text-primary" />
                 </div>
-                <span className="font-semibold text-foreground">{post.author}</span>
+                <div>
+                  <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Written by</p>
+                  <p className="font-bold text-foreground text-base tracking-tight">{post.author}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-xs">
-                <Calendar size={14} /> {format(new Date(post.published_at), 'MMMM dd, yyyy')}
+
+              <div className="h-10 w-[1px] bg-border/50 hidden sm:block" />
+
+              <div className="flex flex-col gap-1">
+                <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold flex items-center gap-1.5">
+                  <Calendar size={12} /> Published
+                </p>
+                <p className="font-bold text-foreground">{format(new Date(post.published_at), 'MMMM dd, yyyy')}</p>
               </div>
-              <div className="flex items-center gap-2 text-xs">
-                <Clock size={14} /> {Math.ceil(post.content.split(' ').length / 200)} min read
+
+              <div className="h-10 w-[1px] bg-border/50 hidden sm:block" />
+
+              <div className="flex flex-col gap-1 text-primary">
+                <p className="text-xs uppercase tracking-widest font-bold flex items-center gap-1.5">
+                  <Clock size={12} /> Read Time
+                </p>
+                <p className="font-black text-lg">{Math.ceil(post.content.split(' ').length / 200)} min</p>
               </div>
             </div>
           </motion.div>
@@ -140,12 +157,42 @@ const BlogPost = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-img:rounded-2xl"
+            className="prose prose-invert prose-lg max-w-none 
+              prose-headings:text-foreground prose-headings:font-black prose-headings:tracking-tighter
+              prose-h1:text-5xl prose-h1:mb-8
+              prose-h2:text-4xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-primary/20
+              prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-primary/90
+              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
+              prose-strong:text-foreground prose-strong:font-bold
+              prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+              prose-img:rounded-3xl prose-img:shadow-2xl"
           >
-            {/* Split content by newlines for basic formatting since we aren't using a MD library yet */}
-            {post.content.split('\n').map((paragraph, idx) => (
-              paragraph.trim() === "" ? <br key={idx} /> : <p key={idx}>{paragraph}</p>
-            ))}
+            {post.content.split('\n').map((line, idx) => {
+              const trimmedLine = line.trim();
+              if (!trimmedLine) return <div key={idx} className="h-4" />;
+
+              // Handle Headers
+              if (trimmedLine.startsWith('### ')) {
+                return <h3 key={idx}>{trimmedLine.replace('### ', '')}</h3>;
+              }
+              if (trimmedLine.startsWith('## ')) {
+                return <h2 key={idx}>{trimmedLine.replace('## ', '')}</h2>;
+              }
+              if (trimmedLine.startsWith('# ')) {
+                return <h1 key={idx}>{trimmedLine.replace('# ', '')}</h1>;
+              }
+
+              // Handle Bold Text throughout the line (simplified for this context)
+              // This basic approach wraps the entire paragraph in <p>
+              // For more complex MD we'd need a real parser, but this fits the generated content
+              return (
+                <p key={idx}>
+                  {trimmedLine.split('**').map((part, i) => 
+                    i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                  )}
+                </p>
+              );
+            })}
           </motion.div>
 
           <div className="mt-16 pt-8 border-t border-border flex items-center justify-between">

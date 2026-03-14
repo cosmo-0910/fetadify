@@ -58,13 +58,13 @@ const Blog = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <p className="text-primary font-mono text-sm mb-3">SPATIAL INSIGHTS</p>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight mb-6">
-              Our <span className="text-gradient">Blog</span>
+            <p className="text-primary font-black tracking-[0.3em] uppercase text-xs mb-4">SPATIAL INSIGHTS</p>
+            <h1 className="text-5xl sm:text-8xl font-black tracking-tightest mb-8 leading-none">
+              The <span className="text-gradient">Blog</span>
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-              Exploring the intersection of GIS, custom software engineering, and spatial intelligence. 
-              Stay updated with our latest findings and industry trends.
+            <p className="text-muted-foreground max-w-2xl mx-auto text-xl leading-relaxed">
+              Deep dives into GIS, custom software engineering, and spatial intelligence. 
+              Knowledge for the next generation of innovators.
             </p>
           </motion.div>
 
@@ -86,44 +86,48 @@ const Blog = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:glow-card transition-all duration-300"
+                  className="group flex flex-col rounded-[2.5rem] border border-border bg-secondary/20 overflow-hidden hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_50px_-12px_rgba(var(--primary-rgb),0.3)]"
                 >
-                  <Link to={`/blog/${post.slug}`} className="relative h-56 overflow-hidden">
+                  <Link to={`/blog/${post.slug}`} className="relative h-64 overflow-hidden">
                     <img 
                       src={post.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"} 
                       alt={post.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-primary/95 text-primary-foreground text-[10px] font-bold uppercase px-3 py-1 rounded-full backdrop-blur-sm">
+                    <div className="absolute top-6 left-6">
+                      <span className="bg-primary text-black text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-xl">
                         {post.category}
                       </span>
                     </div>
                   </Link>
                   
-                  <div className="flex-1 p-6 flex flex-col">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={12} /> {format(new Date(post.published_at), 'MMM dd, yyyy')}
+                  <div className="flex-1 p-8 flex flex-col">
+                    <div className="flex items-center gap-6 text-[11px] font-black uppercase tracking-widest text-muted-foreground/60 mb-6">
+                      <span className="flex items-center gap-2">
+                        <Calendar size={14} className="text-primary" /> {format(new Date(post.published_at), 'MMM dd, yyyy')}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <User size={12} /> {post.author}
+                      <span className="flex items-center gap-2">
+                        <User size={14} className="text-primary" /> {post.author}
                       </span>
                     </div>
                     
-                    <h2 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                    <h2 className="text-2xl font-black mb-4 group-hover:text-primary transition-colors line-clamp-2 leading-tight tracking-tight">
                       <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                     </h2>
                     
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-6 flex-1">
+                    <p className="text-muted-foreground line-clamp-3 mb-8 flex-1 leading-relaxed">
                       {post.excerpt}
                     </p>
                     
                     <Link 
                       to={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
+                      className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-tighter text-primary group/link"
                     >
-                      Read Article <ArrowRight size={16} />
+                      <span className="relative">
+                        Read Article
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover/link:w-full transition-all duration-300" />
+                      </span>
+                      <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                     </Link>
                   </div>
                 </motion.article>
