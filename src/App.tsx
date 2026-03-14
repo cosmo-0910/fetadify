@@ -23,6 +23,7 @@ import AnalyticsManager from "./pages/admin/AnalyticsManager";
 import SubscribersManager from "./pages/admin/SubscribersManager";
 import SupportManager from "./pages/admin/SupportManager";
 import OrdersManager from "./pages/admin/OrdersManager";
+import SettingsManager from "./pages/admin/SettingsManager";
 
 import InvoicesManager from "./pages/admin/InvoicesManager";
 import Pricing from "./pages/Pricing";
@@ -80,8 +81,7 @@ const App = () => (
                 <Route path="messages" element={<MessagesManager />} />
                 <Route path="users" element={<UsersManager />} />
                 <Route path="bookings" element={<BookingsManager />} />
-                <Route path="invoices" element={<InvoicesManager />} />
-                <Route path="blog" element={<BlogPostsManager />} />
+                <Route path="settings" element={<SettingsManager />} />
               </Route>
     
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
