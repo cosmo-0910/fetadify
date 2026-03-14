@@ -14,7 +14,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           loop 
           muted 
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-70 dark:opacity-50 grayscale-[10%] transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full object-cover opacity-100 dark:opacity-50 grayscale-0 dark:grayscale-[10%] transition-opacity duration-1000"
         >
           <source src={heroBg} type="video/mp4" />
         </video>
@@ -32,12 +32,12 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           }}
         />
 
-        {/* Dense Vignette for Cleanliness */}
-        <div className="absolute inset-0 bg-background/10 dark:bg-background/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,background_120%)] opacity-60 dark:opacity-70" />
+        {/* Dense Vignette for Cleanliness - Hidden in Light Mode */}
+        <div className="absolute inset-0 hidden dark:block dark:bg-background/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,background_120%)] opacity-0 dark:opacity-70" />
         
-        {/* Bottom Fade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/5 to-background/90" />
+        {/* Bottom Fade - Reduced in Light Mode */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/50 dark:via-background/5 dark:to-background/90" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
