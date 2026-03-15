@@ -32,6 +32,9 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           }}
         />
 
+        {/* Tiniest Fog */}
+        <div className="absolute inset-0 bg-background/5 dark:bg-background/10 backdrop-blur-[1.5px]" />
+
         {/* Dense Vignette for Cleanliness - Transparent in the middle */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,background_150%)] opacity-30 dark:opacity-50" />
         
@@ -50,10 +53,10 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 mb-10 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md"
+            className="flex items-center gap-2 mb-10 px-4 py-1.5 rounded-full border border-primary/30 bg-background/50 dark:bg-background/50 backdrop-blur-md shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/80">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_var(--primary)]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground drop-shadow-sm">
               GIS & Spatial Intelligence Evolution
             </span>
           </motion.div>
@@ -63,7 +66,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             <span className="text-gradient">Possibility</span>
           </h1>
 
-          <p className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-16 leading-relaxed font-medium px-4">
+          <p className="max-w-2xl text-lg md:text-xl text-foreground/90 dark:text-foreground/90 mb-16 leading-relaxed font-medium px-4 drop-shadow-sm">
             Fetadify pioneers the next era of location intelligence. We build high-performance digital ecosystems that turn vast spatial data into precision strategies.
           </p>
 
