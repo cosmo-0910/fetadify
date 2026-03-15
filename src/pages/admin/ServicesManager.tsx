@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Code, LucideIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Code, LucideIcon, ExternalLink, Loader2 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
 interface Service {
@@ -30,6 +30,8 @@ interface Service {
   description: string;
   icon_name: string;
   display_order: number;
+  image_url?: string;
+  content?: string;
 }
 
 const ServicesManager = () => {
@@ -43,6 +45,9 @@ const ServicesManager = () => {
   const [description, setDescription] = useState("");
   const [iconName, setIconName] = useState("Code");
   const [displayOrder, setDisplayOrder] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
+  const [content, setContent] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetchServices();
@@ -71,14 +76,48 @@ const ServicesManager = () => {
       setDescription(service.description);
       setIconName(service.icon_name);
       setDisplayOrder(service.display_order);
+      setImageUrl(service.image_url || "");
+      setContent(service.content || "");
     } else {
       setEditingService(null);
       setTitle("");
       setDescription("");
       setIconName("Code");
       setDisplayOrder(services.length);
+      setImageUrl("");
+      setContent("");
     }
     setIsDialogOpen(true);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+      const filePath = `services/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      setImageUrl(publicUrl);
+      toast.success("Image uploaded successfully");
+    } catch (error: any) {
+      console.error('Error uploading image:', error);
+      toast.error("Error uploading image: " + error.message);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,6 +129,8 @@ const ServicesManager = () => {
       description,
       icon_name: iconName,
       display_order: displayOrder,
+      image_url: imageUrl,
+      content,
     };
 
     try {
@@ -208,8 +249,64 @@ const ServicesManager = () => {
               <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Software Development" required />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="desc">Description</Label>
-              <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe the service..." required />
+              <Label htmlFor="desc">Short Description (for cards)</Label>
+              <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe the service..." required rows={2} />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="imageUpload">Cover Image (for detail page)</Label>
+              <div className="grid gap-4">
+                {imageUrl && (
+                  <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
+                    <img 
+                      src={imageUrl} 
+                      alt="Cover preview" 
+                      className="h-full w-full object-cover"
+                    />
+                    <Button 
+                      type="button" 
+                      variant="destructive" 
+                      size="icon" 
+                      className="absolute top-2 right-2 h-8 w-8"
+                      onClick={() => setImageUrl("")}
+                    >
+                      <Trash2 size={14} />
+                    </Button>
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Input 
+                      id="imageUpload" 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleImageUpload}
+                      disabled={uploading}
+                      className="cursor-pointer"
+                    />
+                    {uploading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-md">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      </div>
+                    )}
+                  </div>
+                  <Input 
+                    value={imageUrl} 
+                    onChange={(e) => setImageUrl(e.target.value)} 
+                    placeholder="Or paste image URL..." 
+                    className="flex-[2]"
+                  />
+                  {imageUrl && (
+                    <Button variant="outline" size="icon" type="button" onClick={() => window.open(imageUrl, '_blank')}>
+                      <ExternalLink size={16} />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="content">Full Content (Markdown supported)</Label>
+              <Textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Write your full 5-10 minute read content here..." className="min-h-[200px]" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">

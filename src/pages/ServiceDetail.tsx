@@ -4,8 +4,9 @@ import { supabase } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, HelpCircle } from "lucide-react";
+import { ArrowLeft, HelpCircle, Clock } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Service {
   id: string;
@@ -13,6 +14,8 @@ interface Service {
   description: string;
   icon_name: string;
   features?: string[];
+  image_url?: string;
+  content?: string;
 }
 
 const ServiceDetail = () => {
@@ -68,38 +71,113 @@ const ServiceDetail = () => {
   }
 
   const Icon = getIcon(service.icon_name);
+  const textContent = service.content || service.description;
+  const readTime = Math.max(1, Math.ceil(textContent.split(' ').length / 200));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar onBookClick={() => navigate("/booking")} />
       
-      <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto min-h-[80vh]">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate("/services")} 
-          className="mb-8 hover:bg-white/5 group -ml-4"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
-          Back to all services
-        </Button>
+      <main className="pt-32 pb-24 min-h-[80vh]">
+        {/* Header Section */}
+        <div className="mx-auto max-w-4xl px-6 mb-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="mb-8"
+          >
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/services")} 
+              className="hover:bg-white/5 group -ml-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+              Back to all services
+            </Button>
+          </motion.div>
 
-        <div className="space-y-12">
-          {/* Header */}
-          <header className="space-y-6">
-            <div className="w-20 h-20 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-lg shadow-primary/5">
-              <Icon size={40} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center sm:text-left"
+          >
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-[11px] font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-8 border border-primary/20">
+              <Icon size={12} /> {service.title}
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-foreground">
+            
+            <h1 className="text-5xl sm:text-7xl font-black tracking-tightest mb-10 leading-[1.1] text-balance">
               {service.title}
             </h1>
-          </header>
+            
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-8 text-sm text-muted-foreground bg-secondary/30 p-6 rounded-3xl border border-border/50 backdrop-blur-sm">
+              <div className="flex flex-col gap-1 text-primary">
+                <p className="text-xs uppercase tracking-widest font-bold flex items-center gap-1.5">
+                  <Clock size={12} /> Est. Read Time
+                </p>
+                <p className="font-black text-lg">{readTime} min</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
-          {/* Description */}
-          <div className="prose prose-invert max-w-none">
-            <p className="text-xl text-muted-foreground leading-relaxed whitespace-pre-wrap">
-              {service.description}
-            </p>
-          </div>
+        {/* Featured Image */}
+        {service.image_url && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="mx-auto max-w-6xl px-6 mb-16"
+          >
+            <div className="aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-primary/5">
+              <img 
+                src={service.image_url} 
+                alt={service.title} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+        )}
+
+        <div className="mx-auto max-w-4xl px-6 space-y-12">
+          {/* Content Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="prose prose-invert prose-lg max-w-none 
+              prose-headings:text-foreground prose-headings:font-black prose-headings:tracking-tighter
+              prose-h1:text-5xl prose-h1:mb-8
+              prose-h2:text-4xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-4 prose-h2:border-b prose-h2:border-primary/20
+              prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-primary/90
+              prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
+              prose-strong:text-foreground prose-strong:font-bold
+              prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+              prose-img:rounded-3xl prose-img:shadow-2xl"
+          >
+            {textContent.split('\n').map((line, idx) => {
+              const trimmedLine = line.trim();
+              if (!trimmedLine) return <div key={idx} className="h-4" />;
+
+              if (trimmedLine.startsWith('### ')) {
+                return <h3 key={idx}>{trimmedLine.replace('### ', '')}</h3>;
+              }
+              if (trimmedLine.startsWith('## ')) {
+                return <h2 key={idx}>{trimmedLine.replace('## ', '')}</h2>;
+              }
+              if (trimmedLine.startsWith('# ')) {
+                return <h1 key={idx}>{trimmedLine.replace('# ', '')}</h1>;
+              }
+
+              return (
+                <p key={idx}>
+                  {trimmedLine.split('**').map((part, i) => 
+                    i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                  )}
+                </p>
+              );
+            })}
+          </motion.div>
 
           {/* Features Section */}
           {service.features && service.features.length > 0 && (
@@ -122,7 +200,7 @@ const ServiceDetail = () => {
           )}
 
           {/* CTA Action */}
-          <div className="pt-12 border-t border-border/50 flex flex-col sm:flex-row gap-6 items-center justify-between">
+          <div className="pt-12 border-t border-border/50 flex flex-col sm:flex-row gap-6 items-center justify-between mt-8">
             <div>
               <h4 className="text-2xl font-bold mb-2">Ready to start?</h4>
               <p className="text-muted-foreground">Book this specific service online and let's get to work.</p>
