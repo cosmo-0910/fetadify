@@ -71,7 +71,42 @@ const ServiceDetail = () => {
   }
 
   const Icon = getIcon(service.icon_name);
-  const textContent = service.content || service.description;
+  let fakedContent = "";
+  if (!service.content) {
+    const dummySection = `
+## Overview
+
+Our **${service.title}** services are designed to address the complex challenges of modern infrastructure and spatial analysis. By leveraging advanced technologies and industry-leading best practices, we deliver scalable, robust, and highly efficient solutions tailored to your unique operational requirements.
+
+### Strategic Implementation
+
+We begin by thoroughly analyzing your existing systems and understanding your strategic goals. This allows us to architect a solution that not only meets your current needs but also provides a flexible foundation for future growth. Our approach incorporates rigorous testing, detailed documentation, and continuous integration to ensure the highest level of quality and reliability.
+
+1. **Comprehensive Analysis**: We assess your spatial data needs and operational workflows.
+2. **Custom Architecture**: Designing robust solutions using state-of-the-art frameworks.
+3. **Agile Development**: Iterative implementation with regular feedback loops.
+4. **Seamless Deployment**: Ensuring smooth transitions and minimal downtime.
+
+### Advanced Capabilities and Integration
+
+Our team specializes in integrating diverse data sources and building intuitive interfaces that empower your users. Whether it's real-time environmental monitoring, complex land mapping, or enterprise-level infrastructure management, we bring deep expertise to every facet of the project.
+
+- **Real-time Analytics**: Process and visualize data as it happens.
+- **Cross-platform Compatibility**: Access your tools from desktop, web, or mobile environments.
+- **High-performance Processing**: Efficient handling of large-scale datasets.
+- **Secure Architecture**: Industry-standard security protocols to protect your sensitive data.
+
+### Long-term Support and Evolution
+
+Technology is constantly evolving, and so are your business needs. We provide ongoing support, regular maintenance, and iterative upgrades to ensure your systems remain at the cutting edge. Our dedicated team is always available to troubleshoot issues, implement new features, and optimize performance.
+
+Partner with us to transform your data into actionable insights and drive meaningful progress in your organization. Our commitment to excellence and innovation ensures that your investment in ${service.title} yields significant and sustained returns.
+    `.trim();
+
+    fakedContent = service.description + '\n\n' + dummySection + '\n\n' + dummySection + '\n\n' + dummySection; // Tripled to simulate 5-10min read
+  }
+
+  const textContent = service.content || fakedContent;
   const readTime = Math.max(1, Math.ceil(textContent.split(' ').length / 200));
 
   return (
@@ -122,22 +157,20 @@ const ServiceDetail = () => {
         </div>
 
         {/* Featured Image */}
-        {service.image_url && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mx-auto max-w-6xl px-6 mb-16"
-          >
-            <div className="aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-primary/5">
-              <img 
-                src={service.image_url} 
-                alt={service.title} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-        )}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="mx-auto max-w-6xl px-6 mb-16"
+        >
+          <div className="aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-primary/5">
+            <img 
+              src={service.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"} 
+              alt={service.title} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
 
         <div className="mx-auto max-w-4xl px-6 space-y-12">
           {/* Content Description */}
