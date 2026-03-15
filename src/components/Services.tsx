@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import * as LucideIcons from "lucide-react";
 import { HelpCircle } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface Service {
   id: string;
@@ -17,7 +16,7 @@ interface Service {
 const Services = ({ onBookClick }: { onBookClick: () => void }) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -74,7 +73,7 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                onClick={() => setSelectedService(service)}
+                onClick={() => navigate(`/services/${service.id}`)}
                 className="group cursor-pointer relative rounded-[2.5rem] glass p-10 hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-primary/10 transition-colors" />
@@ -106,69 +105,6 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
           })}
         </div>
       </div>
-
-      <Dialog open={!!selectedService} onOpenChange={(open) => !open && setSelectedService(null)}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background/95 backdrop-blur-xl border-white/10">
-          <DialogHeader className="mb-6">
-            <DialogTitle className="flex items-center gap-4 text-3xl font-bold">
-              {selectedService && (() => {
-                const ModalIcon = getIcon(selectedService.icon_name);
-                return (
-                  <div className="p-3 bg-primary/10 text-primary rounded-xl">
-                    <ModalIcon size={32} />
-                  </div>
-                );
-              })()}
-              {selectedService?.title}
-            </DialogTitle>
-            <DialogDescription className="sr-only">
-              Details and features for {selectedService?.title}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-8 py-4">
-            <div>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                {selectedService?.description}
-              </p>
-            </div>
-
-            {selectedService?.features && selectedService.features.length > 0 && (
-              <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                <h4 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                  <HelpCircle className="w-5 h-5 text-primary" />
-                  Key Features & Capabilities
-                </h4>
-                <ul className="grid gap-4 sm:grid-cols-2">
-                  {selectedService.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0 shadow-[0_0_8px_rgba(var(--primary),0.8)]" />
-                      <span className="text-foreground/90 leading-tight">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          <DialogFooter className="mt-8 gap-3 sm:gap-0">
-            <Button variant="ghost" onClick={() => setSelectedService(null)} className="hover:bg-white/5">
-              Close details
-            </Button>
-            <Button 
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/25"
-              onClick={() => {
-                setSelectedService(null);
-                onBookClick();
-              }}>
-              Book This Service
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };

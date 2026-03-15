@@ -30,7 +30,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           <div className="space-y-8">
             <a href="/" className="inline-block group">
-              <img src={logo} alt="Fetadify Logo" className="h-12 w-auto group-hover:scale-105 transition-transform duration-500" />
+              <img src={logo} alt="Fetadify Logo" className="h-12 w-auto group-hover:scale-105 transition-transform duration-500 dark:invert" />
             </a>
             <p className="text-muted-foreground leading-relaxed">
               Pioneering the next era of location intelligence through end-to-end geospatial engineering and custom AI strategies.

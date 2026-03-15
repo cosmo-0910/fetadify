@@ -19,7 +19,7 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="/" className="flex items-center gap-2">
-          <img src={logo} alt="Fetadify Logo" className="h-8 md:h-10 w-auto transition-all" />
+          <img src={logo} alt="Fetadify Logo" className="h-8 md:h-10 w-auto transition-all dark:invert" />
         </a>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
