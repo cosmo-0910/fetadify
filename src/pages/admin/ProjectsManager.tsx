@@ -23,12 +23,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
 import { FileUpload } from "@/components/admin/FileUpload";
+import { GalleryUpload } from "@/components/admin/GalleryUpload";
 
 interface Project {
   id: string;
   title: string;
   category: string;
   image_url: string;
+  gallery_urls: string[];
+  external_url: string;
   result: string;
   description: string;
   display_order: number;
@@ -44,6 +47,8 @@ const ProjectsManager = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [galleryUrls, setGalleryUrls] = useState<string[]>([]);
+  const [externalUrl, setExternalUrl] = useState("");
   const [result, setResult] = useState("");
   const [description, setDescription] = useState("");
   const [displayOrder, setDisplayOrder] = useState(0);
@@ -74,6 +79,8 @@ const ProjectsManager = () => {
       setTitle(project.title);
       setCategory(project.category);
       setImageUrl(project.image_url);
+      setGalleryUrls(project.gallery_urls || []);
+      setExternalUrl(project.external_url || "");
       setResult(project.result);
       setDescription(project.description);
       setDisplayOrder(project.display_order);
@@ -82,6 +89,8 @@ const ProjectsManager = () => {
       setTitle("");
       setCategory("");
       setImageUrl("");
+      setGalleryUrls([]);
+      setExternalUrl("");
       setResult("");
       setDescription("");
       setDisplayOrder(projects.length);
@@ -97,6 +106,8 @@ const ProjectsManager = () => {
       title,
       category,
       image_url: imageUrl,
+      gallery_urls: galleryUrls,
+      external_url: externalUrl,
       result,
       description,
       display_order: displayOrder,
@@ -234,9 +245,21 @@ const ProjectsManager = () => {
             <FileUpload 
               value={imageUrl} 
               onChange={setImageUrl} 
-              label="Project Media (Image or Video)"
+              label="Thumbnail Image/Video"
               folder="projects"
             />
+
+            <GalleryUpload 
+              value={galleryUrls} 
+              onChange={setGalleryUrls} 
+              label="Project Gallery (Multiple Images/Videos)"
+              folder="projects/gallery"
+            />
+
+            <div className="grid gap-2">
+              <Label htmlFor="externalUrl">External Project Link (Optional)</Label>
+              <Input id="externalUrl" value={externalUrl} onChange={(e) => setExternalUrl(e.target.value)} placeholder="https://example.com" />
+            </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">

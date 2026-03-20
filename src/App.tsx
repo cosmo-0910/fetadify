@@ -38,6 +38,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import TestimonialsManager from "./pages/admin/TestimonialsManager";
 
 import Portfolio from "./pages/Portfolio";
+import ProjectDetail from "./pages/ProjectDetail";
 import ReviewSubmission from "./pages/ReviewSubmission";
 
 const queryClient = new QueryClient();
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/maintenance" element={<Maintenance />} />
             <Route path="/admin/login" element={<Login />} />
               <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/reviews/submit" element={<ReviewSubmission />} />

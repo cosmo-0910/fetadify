@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { MediaLightbox } from "@/components/MediaLightbox";
 
 interface Project {
   id: string;
@@ -16,6 +18,10 @@ interface Project {
 const Work = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const [currentGallery, setCurrentGallery] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -70,7 +76,22 @@ const Work = () => {
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
               >
-                <div className="aspect-[16/10] overflow-hidden">
+                <div className="aspect-[16/10] overflow-hidden relative group">
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="text-white hover:bg-white/10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentGallery([project.image_url]);
+                        setActiveMediaIndex(0);
+                        setLightboxOpen(true);
+                      }}
+                    >
+                      <Maximize2 size={24} />
+                    </Button>
+                  </div>
                   {project.image_url?.toLowerCase().match(/\.(mp4|webm|ogg|mov|avi)$/) || project.image_url?.includes('/video') ? (
                     <video 
                       src={project.image_url} 
@@ -105,8 +126,11 @@ const Work = () => {
                     {project.description}
                   </p>
                   <div className="mt-6 pt-6 border-t border-border">
-                    <button className="text-sm font-semibold flex items-center gap-2 text-foreground/80 hover:text-primary transition-colors">
-                      View Case Study <ExternalLink size={14} />
+                    <button 
+                      onClick={() => navigate(`/projects/${project.id}`)}
+                      className="text-sm font-semibold flex items-center gap-2 text-foreground/80 hover:text-primary transition-colors"
+                    >
+                      View Case Study <ArrowUpRight size={14} />
                     </button>
                   </div>
                 </div>
@@ -131,6 +155,12 @@ const Work = () => {
           </Button>
         </motion.div>
       </div>
+      <MediaLightbox 
+        isOpen={lightboxOpen} 
+        onClose={() => setLightboxOpen(false)} 
+        media={currentGallery}
+        initialIndex={activeMediaIndex}
+      />
     </section>
   );
 };
