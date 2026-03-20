@@ -7,7 +7,7 @@ import heroBg from "@/assets/hero-bg.mp4";
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 pb-48 bg-background text-foreground transition-all duration-1000">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-24 sm:pt-32 sm:pb-48 bg-background text-foreground transition-all duration-1000">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <video 
           autoPlay 
@@ -56,17 +56,17 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             className="flex items-center gap-2 mb-10 px-4 py-1.5 rounded-full border border-primary/30 bg-background/50 dark:bg-background/50 backdrop-blur-md shadow-sm"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_var(--primary)]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-foreground drop-shadow-sm">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-foreground drop-shadow-sm">
               GIS & Spatial Intelligence Evolution
             </span>
           </motion.div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.85] mb-8 text-foreground uppercase drop-shadow-2xl">
-            Transforming <br />
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.9] sm:leading-[0.85] mb-6 sm:mb-8 text-foreground uppercase drop-shadow-2xl">
+            Transforming <br className="hidden sm:inline" />
             <span className="text-gradient">Possibility</span>
           </h1>
 
-          <p className="max-w-2xl text-lg md:text-xl text-foreground/90 dark:text-foreground/90 mb-16 leading-relaxed font-medium px-4 drop-shadow-sm">
+          <p className="max-w-2xl text-base sm:text-lg md:text-xl text-foreground/90 dark:text-foreground/90 mb-10 sm:mb-16 leading-relaxed font-medium px-4 drop-shadow-sm">
             Fetadify pioneers the next era of location intelligence. We build high-performance digital ecosystems that turn vast spatial data into precision strategies.
           </p>
 
@@ -74,14 +74,14 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             <Button
               onClick={onBookClick}
               size="lg"
-              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 glow-primary h-16 px-14 text-lg rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl"
+              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 glow-primary h-14 sm:h-16 px-8 sm:px-14 text-base sm:text-lg rounded-full font-bold transition-all hover:scale-105 active:scale-95 shadow-2xl"
             >
               Start Your Project <ArrowRight size={20} className="ml-3 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto glass border-white/10 hover:bg-white/5 h-16 px-14 text-lg rounded-full font-semibold backdrop-blur-md transition-all hover:border-primary/30"
+              className="w-full sm:w-auto glass border-white/10 hover:bg-white/5 h-14 sm:h-16 px-8 sm:px-14 text-base sm:text-lg rounded-full font-semibold backdrop-blur-md transition-all hover:border-primary/30"
               asChild
             >
               <a href="/services">View Capabilities</a>
