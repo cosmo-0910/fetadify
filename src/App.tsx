@@ -37,6 +37,7 @@ import Maintenance from "./pages/Maintenance";
 import { ThemeProvider } from "./components/ThemeProvider";
 import TestimonialsManager from "./pages/admin/TestimonialsManager";
 
+import Portfolio from "./pages/Portfolio";
 import ReviewSubmission from "./pages/ReviewSubmission";
 
 const queryClient = new QueryClient();
@@ -65,6 +66,7 @@ const App = () => (
             <Route path="/invoice/:id" element={<InvoiceViewer />} />
             <Route path="/maintenance" element={<Maintenance />} />
             <Route path="/admin/login" element={<Login />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/reviews/submit" element={<ReviewSubmission />} />

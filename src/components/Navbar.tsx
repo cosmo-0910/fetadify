@@ -25,6 +25,7 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="/services" className="hover:text-foreground transition-colors font-medium">Services</a>
           <a href="/pricing" className="hover:text-foreground transition-colors font-medium">Pricing</a>
+          <a href="/portfolio" className="hover:text-foreground transition-colors font-medium">Portfolio</a>
           <a href="/blog" className="hover:text-foreground transition-colors font-medium">Blog</a>
           <a href="/#why" className="hover:text-foreground transition-colors font-medium">Why Us</a>
           <a href="/booking" className="hover:text-foreground transition-colors font-medium">Book</a>
@@ -70,6 +71,7 @@ const Navbar = ({ onBookClick }: { onBookClick: () => void }) => {
           >
             <div className="flex flex-col gap-6">
               <a href="/services" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Services</a>
+              <a href="/portfolio" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Portfolio</a>
               <a href="/blog" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Blog</a>
               <a href="/#why" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Why Us</a>
               <a href="/booking" className="text-lg font-medium text-muted-foreground hover:text-foreground transition-colors" onClick={() => setOpen(false)}>Book</a>

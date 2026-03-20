@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Project {
   id: string;
@@ -113,6 +114,22 @@ const Work = () => {
             ))
           )}
         </div>
+
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="mt-16 text-center"
+        >
+          <Button 
+            onClick={() => window.location.href = "/portfolio"} 
+            variant="outline"
+            size="lg"
+            className="gap-2 px-8 h-12 text-base font-semibold border-primary/20 hover:bg-primary/5 hover:border-primary/50"
+          >
+            View All Projects <ArrowUpRight size={18} />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
