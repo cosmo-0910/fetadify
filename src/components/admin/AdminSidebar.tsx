@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+  { name: 'Projects', href: '/admin/projects', icon: FolderKanban },
   { name: 'Orders/Pricing', href: '/admin/orders', icon: CreditCard },
   { name: 'Services', href: '/admin/services', icon: Briefcase },
   { name: 'Invoices', href: '/admin/invoices', icon: FileText },
