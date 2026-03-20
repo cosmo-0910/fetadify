@@ -23,6 +23,7 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { formatSafeDate } from "@/lib/utils";
 import { Plus, Pencil, Trash2, ExternalLink, Eye, Loader2, Upload } from "lucide-react";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 interface Post {
   id: string;
@@ -53,7 +54,6 @@ const BlogPostsManager = () => {
   const [category, setCategory] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isPublished, setIsPublished] = useState(true);
-  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetchPosts();
@@ -115,35 +115,6 @@ const BlogPostsManager = () => {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
-      const filePath = `blog/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('blog-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('blog-images')
-        .getPublicUrl(filePath);
-
-      setImageUrl(publicUrl);
-      toast.success("Image uploaded successfully");
-    } catch (error: any) {
-      console.error('Error uploading image:', error);
-      toast.error("Error uploading image: " + error.message);
-    } finally {
-      setUploading(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -304,57 +275,12 @@ const BlogPostsManager = () => {
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="imageUpload">Cover Image</Label>
-              <div className="grid gap-4">
-                {imageUrl && (
-                  <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-                    <img 
-                      src={imageUrl} 
-                      alt="Cover preview" 
-                      className="h-full w-full object-cover"
-                    />
-                    <Button 
-                      type="button" 
-                      variant="destructive" 
-                      size="icon" 
-                      className="absolute top-2 right-2 h-8 w-8"
-                      onClick={() => setImageUrl("")}
-                    >
-                      <Trash2 size={14} />
-                    </Button>
-                  </div>
-                )}
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Input 
-                      id="imageUpload" 
-                      type="file" 
-                      accept="image/*" 
-                      onChange={handleImageUpload}
-                      disabled={uploading}
-                      className="cursor-pointer"
-                    />
-                    {uploading && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-md">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      </div>
-                    )}
-                  </div>
-                  <Input 
-                    value={imageUrl} 
-                    onChange={(e) => setImageUrl(e.target.value)} 
-                    placeholder="Or paste image URL..." 
-                    className="flex-[2]"
-                  />
-                  {imageUrl && (
-                    <Button variant="outline" size="icon" type="button" onClick={() => window.open(imageUrl, '_blank')}>
-                      <ExternalLink size={16} />
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </div>
+            <FileUpload 
+              value={imageUrl} 
+              onChange={setImageUrl} 
+              label="Blog Post Media (Image or Video)"
+              folder="blog"
+            />
 
             <div className="grid gap-2">
               <Label htmlFor="excerpt">Excerpt (Brief Summary)</Label>

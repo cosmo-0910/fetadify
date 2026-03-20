@@ -70,11 +70,22 @@ const Work = () => {
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
               >
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={project.image_url}
-                    alt={project.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                  {project.image_url?.toLowerCase().match(/\.(mp4|webm|ogg|mov|avi)$/) || project.image_url?.includes('/video') ? (
+                    <video 
+                      src={project.image_url} 
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={project.image_url}
+                      alt={project.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <div className="mb-2 flex items-center justify-between">

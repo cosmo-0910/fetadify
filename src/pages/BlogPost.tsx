@@ -143,11 +143,22 @@ const BlogPost = () => {
           className="mx-auto max-w-6xl px-6 mb-16"
         >
           <div className="aspect-[21/9] rounded-3xl overflow-hidden border border-border shadow-2xl shadow-primary/5">
-            <img 
-              src={post.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"} 
-              alt={post.title} 
-              className="w-full h-full object-cover"
-            />
+            {post.image_url?.toLowerCase().match(/\.(mp4|webm|ogg|mov|avi)$/) || post.image_url?.includes('/video') ? (
+              <video 
+                src={post.image_url} 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+              />
+            ) : (
+              <img 
+                src={post.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"} 
+                alt={post.title} 
+                className="w-full h-full object-cover"
+              />
+            )}
           </div>
         </motion.div>
 

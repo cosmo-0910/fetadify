@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 interface Project {
   id: string;
@@ -230,17 +231,12 @@ const ProjectsManager = () => {
               </div>
             </div>
             
-            <div className="grid gap-2">
-              <Label htmlFor="imageUrl">Image URL</Label>
-              <div className="flex gap-2">
-                <Input id="imageUrl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://unsplash.com/..." required />
-                {imageUrl && (
-                  <Button variant="outline" size="icon" type="button" onClick={() => window.open(imageUrl, '_blank')}>
-                    <ExternalLink size={16} />
-                  </Button>
-                )}
-              </div>
-            </div>
+            <FileUpload 
+              value={imageUrl} 
+              onChange={setImageUrl} 
+              label="Project Media (Image or Video)"
+              folder="projects"
+            />
 
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
