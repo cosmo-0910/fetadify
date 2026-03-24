@@ -211,7 +211,7 @@ const AnalyticsManager = () => {
                           <DialogTrigger asChild>
                             <Button variant="ghost" size="sm" className="h-8 rounded-lg hover:bg-primary/10">Analyze Path</Button>
                           </DialogTrigger>
-                          <DialogContent className="max-w-md glass border-primary/20">
+                          <DialogContent className="max-w-md glass border-primary/20 max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                               <DialogTitle className="font-bold">Session Intelligence</DialogTitle>
                               <DialogDescription className="text-[10px] font-mono">

@@ -191,7 +191,7 @@ const TestimonialsManager = () => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editingTestimonial ? "Edit Review" : "Add New Review"}</DialogTitle>
           </DialogHeader>

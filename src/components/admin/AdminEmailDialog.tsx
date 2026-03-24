@@ -191,7 +191,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl bg-card border-border">
+      <DialogContent className="max-w-2xl bg-card border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Mail className="h-5 w-5" />

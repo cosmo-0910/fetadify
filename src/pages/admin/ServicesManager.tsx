@@ -210,7 +210,7 @@ const ServicesManager = () => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editingService ? "Edit Service" : "Add New Service"}</DialogTitle>
           </DialogHeader>

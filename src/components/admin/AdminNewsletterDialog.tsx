@@ -89,7 +89,7 @@ export const AdminNewsletterDialog = ({ subscribers, open, onClose }: AdminNewsl
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl glass border-primary/20">
+      <DialogContent className="max-w-2xl glass border-primary/20 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 font-bold text-xl uppercase tracking-tighter">
             <Mail className="h-5 w-5 text-primary" />

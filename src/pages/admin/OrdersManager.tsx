@@ -186,7 +186,7 @@ const OrdersManager = () => {
       </Card>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="glass border-primary/20 max-w-sm">
+        <DialogContent className="glass border-primary/20 max-w-sm max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-bold uppercase tracking-tighter">Set Project Pricing</DialogTitle>
             <DialogDescription className="text-xs">
