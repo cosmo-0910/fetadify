@@ -66,7 +66,7 @@ const AnalyticsManager = () => {
       if (err?.code === '42P01') {
          setError("The visitor_analytics table does not exist. Please ensure database migrations are applied.");
       } else {
-         setError("Failed to load analytics data.");
+         setError(`Analytics Error: ${err?.message || "Failed to load"}${err?.code ? ` [Code: ${err.code}]` : ""}`);
       }
     } finally {
       setLoading(false);
