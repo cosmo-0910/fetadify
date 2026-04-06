@@ -35,6 +35,12 @@ const Footer = () => {
             <p className="text-muted-foreground leading-relaxed">
               Pioneering the next era of location intelligence through end-to-end geospatial engineering and custom AI strategies.
             </p>
+            <div className="pt-2">
+              <a href="mailto:contact@fetadify.com" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
+                contact@fetadify.com
+              </a>
+            </div>
             <div className="flex gap-5 text-muted-foreground">
               <a href="https://www.tiktok.com/@fetadify?_r=1&_t=ZS-95Bgj029UV2" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Video size={20} /></a>
               <a href="https://www.linkedin.com/company/fetadify/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
