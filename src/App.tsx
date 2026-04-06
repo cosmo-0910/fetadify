@@ -41,10 +41,14 @@ import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
 import ReviewSubmission from "./pages/ReviewSubmission";
 
+import { useVisitorTracking } from "./hooks/useVisitorTracking";
+
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+const App = () => {
+  useVisitorTracking();
+  return (
+    <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="fetadify-ui-theme">
       <TooltipProvider>
         <Toaster />
@@ -98,6 +102,7 @@ const App = () => (
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
