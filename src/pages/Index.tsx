@@ -8,8 +8,6 @@ import WhyUs from "@/components/WhyUs";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 
-import TawkToEmbed from "@/components/TawkToEmbed";
-
 const Index = () => {
   const navigate = useNavigate();
   const openBooking = () => navigate("/booking");
@@ -18,7 +16,6 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar onBookClick={openBooking} />
       <Hero onBookClick={openBooking} />
-      <TawkToEmbed />
       <Services onBookClick={openBooking} />
       <Work />
       <Process />
