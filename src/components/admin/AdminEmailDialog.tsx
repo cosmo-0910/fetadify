@@ -99,7 +99,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
 
   const sendEmail = async () => {
     setIsSending(true);
-    const fromEmail = mode === 'invoice' ? "invoice@fetadify.com" : "support@fetadify.com";
+    const fromEmail = mode === 'invoice' ? "invoice@fetadify.com" : "contact@fetadify.com";
     const currencySymbol = order.currency === 'USD' ? '$' : '₦';
     const logoUrl = "https://fetadify.com/COSMOINTLOGO.png";
     const invoiceUrl = `https://fetadify.com/invoice/${order.id}`;
@@ -160,7 +160,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
                   <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
                     <a href="https://fetadify.com" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Website</a>
                     <span style="color: #cbd5e1;">&bull;</span>
-                    <a href="mailto:support@fetadify.com" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Support</a>
+                    <a href="mailto:contact@fetadify.com" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Support</a>
                   </div>
                 </div>
               </div>

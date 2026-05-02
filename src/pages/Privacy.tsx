@@ -99,7 +99,7 @@ const Privacy = () => {
                 If you have any questions about this privacy policy or our privacy practices, please contact us at:
               </p>
               <p className="font-medium text-foreground">
-                Email: support@fetadify.com<br/>
+                Email: contact@fetadify.com<br/>
                 Lagos, Nigeria
               </p>
             </section>

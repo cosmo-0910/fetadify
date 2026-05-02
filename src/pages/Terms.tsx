@@ -92,7 +92,7 @@ const Terms = () => {
                 In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:
               </p>
               <p className="font-medium text-foreground">
-                Email: support@fetadify.com<br/>
+                Email: contact@fetadify.com<br/>
                 Lagos, Nigeria
               </p>
             </section>

@@ -44,7 +44,7 @@ export const AdminNewsletterDialog = ({ subscribers, open, onClose }: AdminNewsl
           body: {
             to: subscriber.email,
             subject: subject,
-            from: "Fetadify <support@fetadify.com>",
+            from: "Fetadify <contact@fetadify.com>",
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; color: #1a1a1a; border: 1px solid #e2e8f0; border-radius: 12px;">
                 <div style="text-align: center; margin-bottom: 40px;">
