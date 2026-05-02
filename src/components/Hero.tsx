@@ -63,7 +63,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             </h1>
 
             <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-lg font-medium">
-              We design and develop custom GIS platforms, data dashboards, and digital solutions that transform spatial data into smarter decisions and real business impact.
+              We design and develop custom GIS platforms, data dashboards, and AI-powered digital solutions that transform spatial data into smarter decisions and real business impact.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
