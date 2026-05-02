@@ -28,7 +28,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
         setEmailMessage(
           `Dear ${order.name || 'Valued Client'},
   
-  Please find the invoice for your recent project with COSMO INT.
+  Please find the invoice for your recent project with Fetadify.
   
   Services Rendered:
   ${order.selected_services ? JSON.parse(order.selected_services).map((service: string) => `• ${service}`).join('\n') : 'No services specified'}
@@ -40,7 +40,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
   NOTE: A 50% deposit is required before project commencement. Payment is due within 24 hours. Thank you for your business!
   
   Best regards,
-  COSMO INT Billing`
+  Fetadify Billing`
         );
       } else if (mode === 'tracking') {
         setEmailSubject(`Track Your Project Progress - Order #${order.id.substring(0, 8)}`);
@@ -57,7 +57,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
   Click the button below to access your tracking dashboard. We look forward to delivering excellence!
   
   Best regards,
-  COSMO INT Project Studio`
+  Fetadify Project Studio`
         );
       } else if (mode === 'reminder') {
         setEmailSubject(`Payment Reminder: ${order.name}'s Vision Project`);
@@ -74,7 +74,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
   You can view your real-time balance and payment history anytime via your project portal.
   
   Best regards,
-  COSMO INT Accounts`
+  Fetadify Accounts`
         );
       } else {
         setEmailSubject(`Quote for Your Project - Order #${order.id.substring(0, 8)}`);
@@ -91,7 +91,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
   This quote is valid for 30 days. We're excited to work with you on this project!
   
   Best regards,
-  COSMO INT Team`
+  Fetadify Team`
         );
       }
     }
@@ -99,11 +99,11 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
 
   const sendEmail = async () => {
     setIsSending(true);
-    const fromEmail = mode === 'invoice' ? "invoice@cosmoint24.com.ng" : "support@cosmoint24.com.ng";
+    const fromEmail = mode === 'invoice' ? "invoice@fetadify.com" : "support@fetadify.com";
     const currencySymbol = order.currency === 'USD' ? '$' : '₦';
-    const logoUrl = "https://cosmoint24.com.ng/COSMOINTLOGO.png";
-    const invoiceUrl = `https://cosmoint24.com.ng/invoice/${order.id}`;
-    const trackingUrl = `https://cosmoint24.com.ng/track/${order.id}`;
+    const logoUrl = "https://fetadify.com/COSMOINTLOGO.png";
+    const invoiceUrl = `https://fetadify.com/invoice/${order.id}`;
+    const trackingUrl = `https://fetadify.com/track/${order.id}`;
     
     const actionUrl = mode === 'tracking' || mode === 'reminder' ? trackingUrl : invoiceUrl;
     const actionText = mode === 'tracking' ? "Track Your Project" : mode === 'reminder' ? "View Payment Portal" : "View & Download Invoice";
@@ -116,7 +116,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
         body: {
           to: order.email,
           subject: emailSubject,
-          from: `COSMO INT <${fromEmail}>`,
+          from: `Fetadify <${fromEmail}>`,
           html: `
             <div style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; color: #1a1a1a; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);">
               <!-- High-End Header Gradient -->
@@ -158,9 +158,9 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
                   <div style="height: 1px; width: 100%; background-color: #f1f5f9; margin-bottom: 30px;"></div>
                   
                   <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-                    <a href="https://cosmoint24.com.ng" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Website</a>
+                    <a href="https://fetadify.com" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Website</a>
                     <span style="color: #cbd5e1;">&bull;</span>
-                    <a href="mailto:support@cosmoint24.com.ng" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Support</a>
+                    <a href="mailto:support@fetadify.com" style="color: #467071; font-size: 12px; text-decoration: none; font-weight: 600;">Support</a>
                   </div>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
             {mode === 'invoice' ? 'Send Invoice Email' : mode === 'tracking' ? 'Send Project Tracking Link' : mode === 'reminder' ? 'Send Payment Reminder' : 'Send Quote Email'}
           </DialogTitle>
           <DialogDescription>
-            Send {mode === 'reminder' ? 'balance reminder' : 'details'} to {order.email} via {mode === 'invoice' ? 'invoice' : 'support'}@cosmoint24.com.ng
+            Send {mode === 'reminder' ? 'balance reminder' : 'details'} to {order.email} via {mode === 'invoice' ? 'invoice' : 'support'}@fetadify.com
           </DialogDescription>
         </DialogHeader>
 

@@ -92,7 +92,7 @@ const SubscribersManager = () => {
             Pulse Registry
           </CardTitle>
           <CardDescription className="text-xs font-medium uppercase tracking-widest opacity-60">
-            Verified members of the Cosmo INT newsletter network
+            Verified members of the Fetadify newsletter network
           </CardDescription>
         </CardHeader>
         <CardContent>

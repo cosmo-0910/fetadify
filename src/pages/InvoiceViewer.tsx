@@ -103,9 +103,9 @@ const InvoiceViewer = () => {
           <div class="info-grid">
             <div class="column">
               <h3>Billed From</h3>
-              <p>Cosmo INT Systems</p>
+              <p>Fetadify Systems</p>
               <p class="sub">Lagos, Nigeria</p>
-              <p class="sub">billing@cosmoint24.com.ng</p>
+              <p class="sub">billing@fetadify.com</p>
             </div>
             <div style="text-align: right;">
               <h3 style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 5px;">Date Issued</h3>
@@ -149,8 +149,8 @@ const InvoiceViewer = () => {
             <div style="background: #eff6ff; color: #1e40af; padding: 15px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 40px;">
               Note: Technical assessment is required for final pricing. A 50% commitment fee is required for all projects.
             </div>
-            <p style="font-size: 12px; color: var(--text-muted);">Thank you for choosing Cosmo INT for your digital engineering needs.</p>
-            <p style="font-weight: 800; font-size: 14px; margin-top: 10px;">cosmoint24.com.ng</p>
+            <p style="font-size: 12px; color: var(--text-muted);">Thank you for choosing Fetadify for your digital engineering needs.</p>
+            <p style="font-weight: 800; font-size: 14px; margin-top: 10px;">fetadify.com</p>
           </div>
         </div>
       </body>
@@ -185,7 +185,7 @@ const InvoiceViewer = () => {
       
       <div className="max-w-[800px] mx-auto mt-8 px-4 text-center no-print">
         <p className="text-sm text-muted-foreground italic">
-          Rendered by Cosmo INT Cloud Billing Engine v2.0
+          Rendered by Fetadify Cloud Billing Engine v2.0
         </p>
       </div>
     </div>

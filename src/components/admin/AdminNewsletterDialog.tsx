@@ -44,11 +44,11 @@ export const AdminNewsletterDialog = ({ subscribers, open, onClose }: AdminNewsl
           body: {
             to: subscriber.email,
             subject: subject,
-            from: "Cosmo INT <support@cosmoint24.com.ng>",
+            from: "Fetadify <support@fetadify.com>",
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; color: #1a1a1a; border: 1px solid #e2e8f0; border-radius: 12px;">
                 <div style="text-align: center; margin-bottom: 40px;">
-                  <h2 style="color: #000; margin: 0;">COSMO INT</h2>
+                  <h2 style="color: #000; margin: 0;">Fetadify</h2>
                 </div>
                 
                 <div style="line-height: 1.8; color: #334155; font-size: 16px;">
@@ -58,7 +58,7 @@ export const AdminNewsletterDialog = ({ subscribers, open, onClose }: AdminNewsl
 
                 <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #f1f5f9; text-align: center;">
                   <p style="color: #94a3b8; font-size: 11px;">
-                    &copy; 2026 Cosmo INT. Lagos, Nigeria.
+                    &copy; 2026 Fetadify. Lagos, Nigeria.
                   </p>
                 </div>
               </div>

@@ -162,9 +162,9 @@ const Maintenance = () => {
         <div className="pt-12 flex flex-col items-center gap-4 text-sm text-muted-foreground font-medium uppercase tracking-[0.2em]">
           <div className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
-            <span>cosmoint24.com.ng</span>
+            <span>fetadify.com</span>
           </div>
-          <p className="text-[10px] opacity-40">© 2026 Cosmo INT. All rights reserved.</p>
+          <p className="text-[10px] opacity-40">© 2026 Fetadify. All rights reserved.</p>
         </div>
       </motion.div>
     </div>
