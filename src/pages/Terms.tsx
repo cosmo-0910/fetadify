@@ -30,9 +30,9 @@ const Terms = () => {
                 1. Agreement to Terms
               </h2>
               <p>
-                These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Fetadify ("we," "us" or "our"), concerning your access to and use of our website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Site").
+                These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Fetadify Tech Limited("we," "us" or "our"), concerning your access to and use of our website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Site").
               </p>
-              <p>
+              <p><footer></footer>
                 You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms and Conditions. If you do not agree with all of these Terms and Conditions, then you are expressly prohibited from using the Site and you must discontinue use immediately.
               </p>
             </section>
