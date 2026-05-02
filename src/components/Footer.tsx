@@ -1,8 +1,9 @@
-import { Linkedin, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import logo from "@/assets/logo.png";
+import { toast } from "sonner";
+import { Loader2, Linkedin, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const TikTok = ({ size = 20 }: { size?: number }) => (
   <svg 
@@ -32,6 +33,9 @@ const Whatsapp = ({ size = 20 }: { size?: number }) => (
 
 const Footer = () => {
   const [services, setServices] = useState<{ id: string, title: string }[]>([]);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -47,6 +51,55 @@ const Footer = () => {
     };
     fetchServices();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsLoading(true);
+    try {
+      // 1. Insert into subscribers table
+      const { error: insertError } = await supabase
+        .from("subscribers")
+        .insert([{ email, is_active: true }]);
+
+      if (insertError) {
+        if (insertError.code === "23505") { // Unique violation
+          toast.error("This email is already subscribed!");
+          return;
+        }
+        throw insertError;
+      }
+
+      // 2. Notify Admin via Edge Function
+      await supabase.functions.invoke('send-resend-email', {
+        body: {
+          to: "contact@fetadify.com",
+          subject: "New Newsletter Subscriber",
+          from: "Fetadify <contact@fetadify.com>",
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #ffffff; color: #1a1a1a; border: 1px solid #e2e8f0; border-radius: 12px;">
+              <h2 style="color: #3b82f6; margin-bottom: 24px;">New Subscriber Alert</h2>
+              <p style="font-size: 16px; line-height: 1.6;">You have a new subscriber to the Fetadify Intelligence Hub:</p>
+              <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e2e8f0;">
+                <p style="margin: 0; font-weight: 700; font-size: 18px; color: #1e293b;">${email}</p>
+              </div>
+              <p style="font-size: 14px; color: #64748b;">This pulse has been successfully added to the registry.</p>
+            </div>
+          `
+        }
+      });
+
+      setIsSubscribed(true);
+      toast.success("Successfully subscribed to the Intelligence Hub!");
+      setEmail("");
+    } catch (error: any) {
+      console.error("Subscription error:", error);
+      toast.error("Failed to subscribe. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <footer className="relative border-t border-white/5 bg-background overflow-hidden">
@@ -101,19 +154,29 @@ const Footer = () => {
             <p className="text-xs text-muted-foreground leading-relaxed">
               Get the latest spatial insights and engineering breakthroughs delivered locally.
             </p>
-            <form className="relative" onSubmit={(e) => e.preventDefault()}>
+            <form className="relative" onSubmit={handleSubmit}>
               <input 
                 type="email" 
                 placeholder="Email address" 
-                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading || isSubscribed}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-muted-foreground/30 disabled:opacity-50"
               />
               <button 
-                className="absolute right-2 top-2 p-2.5 rounded-xl bg-primary text-primary-foreground hover:scale-105 transition-all glow-primary"
+                className="absolute right-2 top-2 p-2.5 rounded-xl bg-primary text-primary-foreground hover:scale-105 transition-all glow-primary disabled:opacity-50 disabled:hover:scale-100"
                 type="submit"
+                disabled={isLoading || isSubscribed}
               >
-                <Send size={16} />
+                {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
               </button>
             </form>
+            {isSubscribed && (
+              <p className="text-[10px] text-primary font-bold uppercase tracking-widest animate-pulse">
+                Transmission Successful - Pulse Added
+              </p>
+            )}
           </div>
         </div>
 
