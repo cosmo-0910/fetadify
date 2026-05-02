@@ -3,6 +3,17 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play, Shield, Rocket, Globe, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import dashboardPreview from "@/assets/dashboard-preview.jpg";
+import aljadaLogo from "@/assets/aljada.svg";
+import chingiLogo from "@/assets/chingitours.png";
+import fktLogo from "@/assets/fkt-logo.png";
+import kitovuLogo from "@/assets/kitovu.jpg";
+
+const trustedCompanies = [
+  { name: "Arada Developments", logo: aljadaLogo },
+  { name: "Chingi Tours", logo: chingiLogo },
+  { name: "Forking Tasty", logo: fktLogo },
+  { name: "Kitovu", logo: kitovuLogo },
+];
 
 const stats = [
   { icon: Shield, label: "Years of Experience", value: "5+" },
@@ -107,9 +118,18 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-500/80 mb-12">
             Trusted by startups and enterprise teams across 3+ continents
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 px-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-            {partners.map(p => (
-              <span key={p} className="text-base md:text-lg font-black text-white/90 tracking-[0.1em] whitespace-nowrap">{p}</span>
+          <div className="flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-20 gap-y-12 px-4 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+            {trustedCompanies.map((company) => (
+              <div key={company.name} className="relative group/logo">
+                <img 
+                  src={company.logo} 
+                  alt={company.name} 
+                  className="h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover/logo:scale-110 filter brightness-200"
+                />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-widest text-slate-500 opacity-0 group-hover/logo:opacity-100 transition-opacity whitespace-nowrap">
+                  {company.name}
+                </span>
+              </div>
             ))}
           </div>
         </div>
