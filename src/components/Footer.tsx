@@ -42,9 +42,9 @@ const Footer = () => {
               </a>
             </div>
             <div className="flex gap-5 text-muted-foreground">
-              <a href="https://www.tiktok.com/@fetadify?_r=1&_t=ZS-95Bgj029UV2" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Video size={20} /></a>
+              <a href="https://www.tiktok.com/@fetadify?_r=1&_t=ZS-95Bgj029UV2" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><TikTok size={20} /></a>
               <a href="https://www.linkedin.com/company/fetadify/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
-              <a href="https://wa.me/447378864922" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Linkedin size={20} /></a>
+              <a href="https://wa.me/447378864922" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all hover:-translate-y-1"><Whatsapp size={20} /></a>
             </div>
           </div>
 
