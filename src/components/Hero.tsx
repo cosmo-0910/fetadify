@@ -11,10 +11,6 @@ const stats = [
   { icon: Users, label: "Client Satisfaction", value: "98%" },
 ];
 
-const partners = [
-  "THE WORLD BANK", "esri", "Trimble", "Terra Drone", "droneDeploy", "K2FLY"
-];
-
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
     <section className="relative min-h-screen pt-32 pb-16 overflow-hidden bg-[#020617]">

@@ -16,7 +16,6 @@ interface Service {
 const Services = ({ onBookClick }: { onBookClick: () => void }) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {(showAll ? services : services.slice(0, 6)).map((service, i) => {
+          {services.slice(0, 6).map((service, i) => {
             const Icon = getIcon(service.icon_name);
             return (
               <motion.div
@@ -114,11 +113,11 @@ const Services = ({ onBookClick }: { onBookClick: () => void }) => {
             className="mt-12 text-center"
           >
             <button
-              onClick={() => setShowAll(!showAll)}
+              onClick={() => navigate('/services')}
               className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary/10 text-primary font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-lg shadow-primary/5 hover:shadow-primary/20"
             >
-              {showAll ? "Show Less" : "See More Services"}
-              <LucideIcons.ArrowDown className={`transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} size={18} />
+              Explore All Services
+              <LucideIcons.ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" size={18} />
             </button>
           </motion.div>
         )}
