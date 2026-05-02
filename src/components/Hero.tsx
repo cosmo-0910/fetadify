@@ -90,7 +90,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             
             <div className="mt-8 flex items-center gap-3 text-slate-500/90 text-[13px] font-medium">
               <CheckCircle2 className="w-4 h-4 text-blue-500/60" />
-              <span>No commitment • Results-driven solutions</span>
+              <span> • Results-driven solutions</span>
             </div>
           </motion.div>
 
