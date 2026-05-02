@@ -80,7 +80,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="relative lg:ml-auto"
+            className="relative lg:ml-auto hidden lg:block"
           >
             <div className="relative z-10 rounded-[2.5rem] border border-white/10 p-2 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-blue-500/5 overflow-hidden">
               <div className="rounded-[2rem] overflow-hidden border border-white/10">
