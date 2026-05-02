@@ -119,7 +119,7 @@ const Footer = () => {
 
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] font-mono uppercase tracking-widest text-muted-foreground">
           <p>
-            © 2026 <span className="text-foreground">Fetadify Systems</span>. Mapping the Future.
+            © 2026 <span className="text-foreground">Fetadify Tech Limited</span>. Mapping the Future.
           </p>
           <div className="flex flex-wrap justify-center gap-10">
             <a href="/privacy" className="hover:text-foreground transition-colors">Privacy</a>
