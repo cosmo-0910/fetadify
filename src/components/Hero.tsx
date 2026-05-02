@@ -3,19 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play, Shield, Rocket, Globe, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import dashboardPreview from "@/assets/dashboard-preview.jpg";
-import aljadaLogo from "@/assets/aljada.svg";
-import chingiLogo from "@/assets/chingitours.png";
-import fktLogo from "@/assets/fkt-logo.png";
-import kitovuLogo from "@/assets/kitovu.jpg";
-import albatrossLogo from "@/assets/albatross aero.png";
-
-const trustedCompanies = [
-  { name: "Arada Developments", logo: aljadaLogo },
-  { name: "Chingi Tours", logo: chingiLogo },
-  { name: "Forking Tasty", logo: fktLogo },
-  { name: "Kitovu", logo: kitovuLogo },
-  { name: "Albatross Aero", logo: albatrossLogo },
-];
 
 const stats = [
   { icon: Shield, label: "Years of Experience", value: "5+" },
@@ -26,18 +13,18 @@ const stats = [
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
-    <section className="relative min-h-screen pt-32 pb-16 overflow-hidden bg-[#020617]">
+    <section className="relative min-h-screen pt-32 pb-16 overflow-hidden bg-background">
       {/* Background Grid & Glows */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(37,99,235,0.12),transparent_70%)]" />
-        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/10 blur-[120px] rounded-full" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(37,99,235,0.08),transparent_70%)]" />
+        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/5 dark:bg-blue-600/10 blur-[120px] rounded-full" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/5 dark:bg-blue-500/10 blur-[120px] rounded-full" />
         
         {/* Subtle Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.15]" 
+          className="absolute inset-0 opacity-[0.05] dark:opacity-[0.15]" 
           style={{ 
-            backgroundImage: `radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(currentColor 1px, transparent 1px)`,
             backgroundSize: '40px 40px' 
           }} 
         />
@@ -58,7 +45,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] text-white mb-8 leading-[1.05] drop-shadow-sm">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] text-foreground mb-8 leading-[1.05] drop-shadow-sm">
               Build Powerful <span className="text-blue-500">GIS & <br />Location Intelligence</span> Systems
             </h1>
 
@@ -110,26 +97,6 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
           </motion.div>
         </div>
 
-        {/* Trusted By Section */}
-        <div className="border-t border-white/5 pt-16 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-500/80 mb-12">
-            Trusted by startups and enterprise teams across 3+ continents
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-20 gap-y-10 sm:gap-y-12 px-4 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-            {trustedCompanies.map((company) => (
-              <div key={company.name} className="relative group/logo">
-                <img 
-                  src={company.logo} 
-                  alt={company.name} 
-                  className="h-8 md:h-12 w-auto object-contain transition-all duration-500 group-hover/logo:scale-110 filter brightness-200"
-                />
-                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-widest text-slate-500 opacity-0 group-hover/logo:opacity-100 transition-opacity whitespace-nowrap">
-                  {company.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-24 py-12 border-t border-white/5">
@@ -146,8 +113,8 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
                 <stat.icon className="w-6 h-6" />
               </div>
               <div className="flex flex-col">
-                <span className="text-4xl font-bold text-white tracking-tight leading-none mb-2">{stat.value}</span>
-                <span className="text-[11px] text-slate-500 font-bold uppercase tracking-widest leading-tight">{stat.label}</span>
+                <span className="text-4xl font-bold text-foreground tracking-tight leading-none mb-2">{stat.value}</span>
+                <span className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest leading-tight">{stat.label}</span>
               </div>
             </motion.div>
           ))}
