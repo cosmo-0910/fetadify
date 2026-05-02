@@ -118,7 +118,7 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
         {/* Trusted By Section */}
         <div className="border-t border-white/5 pt-16 text-center">
           <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-500/80 mb-12">
-            Trusted by startups and enterprise teams across 3+ continents
+            Trusted by startups and enterprise teams across  continents
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-20 gap-y-12 px-4 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {trustedCompanies.map((company) => (
