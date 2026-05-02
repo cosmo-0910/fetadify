@@ -104,7 +104,7 @@ const InvoiceViewer = () => {
             <div class="column">
               <h3>Billed From</h3>
               <p>Fetadify Systems</p>
-              <p class="sub">Lagos, Nigeria</p>
+              <p class="sub"></p>
               <p class="sub">billing@fetadify.com</p>
             </div>
             <div style="text-align: right;">

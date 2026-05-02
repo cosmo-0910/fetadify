@@ -93,7 +93,7 @@ const Terms = () => {
               </p>
               <p className="font-medium text-foreground">
                 Email: contact@fetadify.com<br/>
-                Lagos, Nigeria
+                
               </p>
             </section>
 

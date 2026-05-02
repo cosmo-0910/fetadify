@@ -58,7 +58,7 @@ export const AdminNewsletterDialog = ({ subscribers, open, onClose }: AdminNewsl
 
                 <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #f1f5f9; text-align: center;">
                   <p style="color: #94a3b8; font-size: 11px;">
-                    &copy; 2026 Fetadify. Lagos, Nigeria.
+                    &copy; 2026 Fetadify. .
                   </p>
                 </div>
               </div>

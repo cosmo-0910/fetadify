@@ -167,7 +167,7 @@ export const AdminEmailDialog = ({ order, open, onClose, mode = 'quote' }: Admin
 
               <div style="padding: 40px; background-color: #0f172a; text-align: center;">
                 <p style="color: #94a3b8; font-size: 11px; margin: 0; line-height: 2;">
-                  &copy; 2026 COSMOINT STUDIO. Lagos, Nigeria.
+                  &copy; 2026 COSMOINT STUDIO. .
                   <br />
                   <span style="color: #475569; font-weight: 700; letter-spacing: 0.1em;">FUTURISTIC BRAND & DIGITAL ARCHITECTURE</span>
                 </p>
