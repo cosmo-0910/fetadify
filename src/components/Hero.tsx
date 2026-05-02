@@ -7,12 +7,14 @@ import aljadaLogo from "@/assets/aljada.svg";
 import chingiLogo from "@/assets/chingitours.png";
 import fktLogo from "@/assets/fkt-logo.png";
 import kitovuLogo from "@/assets/kitovu.jpg";
+import albatrossLogo from "@/assets/albatross aero.png";
 
 const trustedCompanies = [
   { name: "Arada Developments", logo: aljadaLogo },
   { name: "Chingi Tours", logo: chingiLogo },
   { name: "Forking Tasty", logo: fktLogo },
   { name: "Kitovu", logo: kitovuLogo },
+  { name: "Albatross Aero", logo: albatrossLogo },
 ];
 
 const stats = [
