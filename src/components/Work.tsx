@@ -18,6 +18,7 @@ interface Project {
 const Work = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const [currentGallery, setCurrentGallery] = useState<string[]>([]);
@@ -52,7 +53,7 @@ const Work = () => {
            viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16"
         >
-          <p className="text-primary font-mono text-sm mb-3">SELECTED WORK</p>
+          <p className="text-primary font-mono text-sm mb-3">PORTFOLIO</p>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4">
             Proven Results, <span className="text-gradient">Real Impact</span>
           </h2>
@@ -67,7 +68,7 @@ const Work = () => {
               <div key={i} className="aspect-[16/10] rounded-2xl bg-secondary/20 animate-pulse border border-border" />
             ))
           ) : (
-            projects.map((project, i) => (
+            (showAll ? projects : projects.slice(0, 3)).map((project, i) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -122,7 +123,7 @@ const Work = () => {
                     {project.title}
                     <ArrowUpRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
                     {project.description}
                   </p>
                   <div className="mt-6 pt-6 border-t border-border">
@@ -139,21 +140,23 @@ const Work = () => {
           )}
         </div>
 
-        <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mt-16 text-center"
-        >
-          <Button 
-            onClick={() => window.location.href = "/portfolio"} 
-            variant="outline"
-            size="lg"
-            className="gap-2 px-8 h-12 text-base font-semibold border-primary/20 hover:bg-primary/5 hover:border-primary/50"
+        {projects.length > 3 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
           >
-            View All Projects <ArrowUpRight size={18} />
-          </Button>
-        </motion.div>
+            <Button 
+              onClick={() => setShowAll(!showAll)} 
+              variant="outline"
+              size="lg"
+              className="gap-2 px-8 h-12 text-base font-semibold border-primary/20 hover:bg-primary/5 hover:border-primary/50"
+            >
+              {showAll ? "Show Less" : "View All Projects"} <ArrowUpRight size={18} className={showAll ? "rotate-180" : ""} />
+            </Button>
+          </motion.div>
+        )}
       </div>
       <MediaLightbox 
         isOpen={lightboxOpen} 

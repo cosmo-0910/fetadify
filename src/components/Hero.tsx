@@ -1,13 +1,13 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Shield, Rocket, Globe, Users } from "lucide-react";
+import { ArrowRight, Play, Shield, Rocket, Globe, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import dashboardPreview from "@/assets/dashboard-preview.jpg";
 
 const stats = [
   { icon: Shield, label: "Years of Experience", value: "5+" },
-  { icon: Rocket, label: "Projects Delivered", value: "20+" },
-  { icon: Globe, label: "Countries Served", value: "30+" },
+  { icon: Rocket, label: "Projects Delivered", value: "50+" },
+  { icon: Globe, label: "Countries Served", value: "20+" },
   { icon: Users, label: "Client Satisfaction", value: "98%" },
 ];
 
@@ -17,49 +17,59 @@ const partners = [
 
 const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
   return (
-    <section className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-[#020617]">
-      {/* Background Pattern - Original Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.15),transparent_70%)]" />
+    <section className="relative min-h-screen pt-32 pb-16 overflow-hidden bg-[#020617]">
+      {/* Background Grid & Glows */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(37,99,235,0.12),transparent_70%)]" />
+        <div className="absolute top-1/4 -right-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/10 blur-[120px] rounded-full" />
+        
+        {/* Subtle Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.15]" 
+          style={{ 
+            backgroundImage: `radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px' 
+          }} 
+        />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center mb-24">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-2xl"
           >
-            <div className="flex items-center gap-2 mb-8 inline-flex px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+            <div className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl">
+              <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_12px_#3b82f6]" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/80">
                 GIS & Spatial Intelligence Experts
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
-              Build Powerful <span className="text-blue-500">GIS & Location Intelligence</span> Systems
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] text-white mb-8 leading-[1.05] drop-shadow-sm">
+              Build Powerful <span className="text-blue-500">GIS & <br />Location Intelligence</span> Systems
             </h1>
 
-            <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-lg font-medium">
               We design and develop custom GIS platforms, data dashboards, and digital solutions that transform spatial data into smarter decisions and real business impact.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-5">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Button
                 onClick={onBookClick}
                 size="lg"
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white h-14 px-10 rounded-xl font-bold group"
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white h-14 px-10 rounded-full font-bold text-base shadow-lg shadow-blue-600/20 group"
               >
-                <ArrowRight className="mr-2 h-5 w-5" />
+                <ArrowRight className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 Book a Demo
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full sm:w-auto border-white/10 bg-white/5 hover:bg-white/10 text-white h-14 px-10 rounded-xl font-bold"
+                className="w-full sm:w-auto border-white/15 bg-transparent hover:bg-white/5 text-white h-14 px-10 rounded-full font-bold text-base"
                 asChild
               >
                 <a href="/#work" className="flex items-center">
@@ -69,60 +79,62 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
               </Button>
             </div>
             
-            <div className="mt-8 flex items-center gap-2 text-blue-500/80 text-sm font-medium">
-              <Shield className="w-4 h-4" />
-              <span>Results-driven solutions • No commitment</span>
+            <div className="mt-8 flex items-center gap-3 text-slate-500/90 text-[13px] font-medium">
+              <CheckCircle2 className="w-4 h-4 text-blue-500/60" />
+              <span>No commitment • Results-driven solutions</span>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative"
+            transition={{ duration: 1, delay: 0.3 }}
+            className="relative lg:ml-auto"
           >
-            <div className="relative z-10 rounded-3xl border border-white/10 overflow-hidden shadow-2xl shadow-blue-500/10">
-              <img 
-                src={dashboardPreview} 
-                alt="Fetadify GeoPlatform Dashboard" 
-                className="w-full h-auto"
-              />
+            <div className="relative z-10 rounded-[2.5rem] border border-white/10 p-2 bg-white/5 backdrop-blur-2xl shadow-2xl shadow-blue-500/5 overflow-hidden">
+              <div className="rounded-[2rem] overflow-hidden border border-white/10">
+                <img 
+                  src={dashboardPreview} 
+                  alt="Fetadify GeoPlatform Dashboard Mockup" 
+                  className="w-full h-auto object-cover scale-[1.01]"
+                />
+              </div>
             </div>
-            {/* Decorative Glow elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/20 blur-[100px] rounded-full" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-600/10 blur-[80px] rounded-full" />
+            
+            {/* Glow accent behind dashboard */}
+            <div className="absolute inset-0 z-0 bg-blue-500/10 blur-[100px] rounded-[3rem] -m-10" />
           </motion.div>
         </div>
 
         {/* Trusted By Section */}
-        <div className="border-t border-white/5 pt-12 text-center">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 mb-10">
+        <div className="border-t border-white/5 pt-16 text-center">
+          <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-500/80 mb-12">
             Trusted by startups and enterprise teams across 3+ continents
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10 px-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
             {partners.map(p => (
-              <span key={p} className="text-lg md:text-xl font-bold text-white tracking-wider">{p}</span>
+              <span key={p} className="text-base md:text-lg font-black text-white/90 tracking-[0.1em] whitespace-nowrap">{p}</span>
             ))}
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-24 pt-12 border-t border-white/5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mt-24 py-12 border-t border-white/5">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="flex items-center gap-5"
+              className="flex items-start lg:items-center gap-5"
             >
-              <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400">
+              <div className="shrink-0 w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-500 shadow-inner">
                 <stat.icon className="w-6 h-6" />
               </div>
-              <div>
-                <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-xs text-slate-500 font-medium uppercase tracking-wider leading-tight">{stat.label}</div>
+              <div className="flex flex-col">
+                <span className="text-4xl font-bold text-white tracking-tight leading-none mb-2">{stat.value}</span>
+                <span className="text-[11px] text-slate-500 font-bold uppercase tracking-widest leading-tight">{stat.label}</span>
               </div>
             </motion.div>
           ))}
