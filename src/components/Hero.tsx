@@ -87,11 +87,6 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
                 </a>
               </Button>
             </div>
-            
-            <div className="mt-8 flex items-center gap-3 text-slate-500/90 text-[13px] font-medium">
-              <CheckCircle2 className="w-4 h-4 text-blue-500/60" />
-              <span> • Results-driven solutions</span>
-            </div>
           </motion.div>
 
           <motion.div
@@ -118,15 +113,15 @@ const Hero = ({ onBookClick }: { onBookClick: () => void }) => {
         {/* Trusted By Section */}
         <div className="border-t border-white/5 pt-16 text-center">
           <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-500/80 mb-12">
-            Trusted by startups and enterprise teams across  continents
+            Trusted by startups and enterprise teams across 3+ continents
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 sm:gap-x-20 gap-y-12 px-4 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-20 gap-y-10 sm:gap-y-12 px-4 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {trustedCompanies.map((company) => (
               <div key={company.name} className="relative group/logo">
                 <img 
                   src={company.logo} 
                   alt={company.name} 
-                  className="h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover/logo:scale-110 filter brightness-200"
+                  className="h-8 md:h-12 w-auto object-contain transition-all duration-500 group-hover/logo:scale-110 filter brightness-200"
                 />
                 <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-widest text-slate-500 opacity-0 group-hover/logo:opacity-100 transition-opacity whitespace-nowrap">
                   {company.name}
