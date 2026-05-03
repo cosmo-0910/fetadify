@@ -23,6 +23,7 @@ interface Service {
   description: string;
   icon_name: string;
   display_order: number;
+  is_custom_price?: boolean;
 }
 
 const Pricing = () => {
@@ -222,7 +223,9 @@ const Pricing = () => {
                     >
                       Learn More <ArrowRight className="ml-1 w-3 h-3" />
                     </Button>
-                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Custom Quote</span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      {service.is_custom_price !== false ? "Custom Quote" : "Starting Price"}
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -257,7 +260,9 @@ const Pricing = () => {
                               {renderIcon(service.icon_name, "w-4 h-4 text-primary")}
                               {service.title}
                             </span>
-                            <span className="text-xs font-medium text-muted-foreground px-2 py-1 bg-background rounded-md">Estimate Required</span>
+                            <span className="text-xs font-medium text-muted-foreground px-2 py-1 bg-background rounded-md">
+                              {service.is_custom_price !== false ? "Estimate Required" : "Fixed Price"}
+                            </span>
                           </div>
                           <div>
                             <Label htmlFor={`requirements-${serviceId}`} className="text-xs text-muted-foreground mb-1 block">

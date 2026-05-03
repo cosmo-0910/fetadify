@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, CheckCircle } from "lucide-react";
+import { X, Send, CheckCircle, Upload, Paperclip, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
@@ -15,6 +16,8 @@ const BookingForm = ({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [loading, setLoading] = useState(false);
   const [services, setServices] = useState<{ id: string, title: string }[]>([]);
   const [selectedService, setSelectedService] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -37,7 +40,8 @@ const BookingForm = ({ open, onClose }: { open: boolean; onClose: () => void }) 
         service_id: selectedService, 
         project_details: formData.get("details"),
         booking_date: new Date().toISOString(),
-        status: 'Pending'
+        status: 'Pending',
+        file_url: fileUrl
       };
       
       const { error } = await supabase.from('bookings').insert([{
@@ -45,7 +49,8 @@ const BookingForm = ({ open, onClose }: { open: boolean; onClose: () => void }) 
         customer_email: bookingData.customer_email,
         service_id: selectedService, // This will now be the title string
         booking_date: bookingData.booking_date,
-        status: 'Pending'
+        status: 'Pending',
+        file_url: fileUrl
       }]);
 
       if (error) {
@@ -60,6 +65,36 @@ const BookingForm = ({ open, onClose }: { open: boolean; onClose: () => void }) 
       toast.error("Failed to submit booking. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+      const filePath = `bookings/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('blog-images') // Reusing the same bucket for now, or you can create 'bookings'
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      setFileUrl(publicUrl);
+      toast.success("Document uploaded successfully");
+    } catch (error: any) {
+      console.error('Error uploading file:', error);
+      toast.error("Error uploading file: " + error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -134,6 +169,48 @@ const BookingForm = ({ open, onClose }: { open: boolean; onClose: () => void }) 
                     required
                     className="bg-muted/50 border-border min-h-[100px]"
                   />
+
+                  <div className="space-y-2">
+                    <Label className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Project Documents (PDF/DOC)</Label>
+                    <div className="flex items-center gap-3">
+                      <div className="relative flex-1">
+                        <input 
+                          type="file" 
+                          onChange={handleFileUpload} 
+                          className="hidden" 
+                          id="booking-file-upload"
+                          accept=".pdf,.doc,.docx,.txt"
+                        />
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          className="w-full flex gap-2 border-dashed border-primary/30 hover:border-primary/50 bg-primary/5 h-12"
+                          onClick={() => document.getElementById('booking-file-upload')?.click()}
+                          disabled={isUploading}
+                        >
+                          {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Paperclip size={16} />}
+                          {fileUrl ? "Document Linked" : "Attach Project Specs"}
+                        </Button>
+                      </div>
+                      {fileUrl && (
+                        <Button
+                          type="button"
+                          variant="ghost" 
+                          size="icon"
+                          className="text-primary hover:bg-primary/10"
+                          onClick={() => window.open(fileUrl, '_blank')}
+                        >
+                          <CheckCircle size={20} />
+                        </Button>
+                      )}
+                    </div>
+                    {fileUrl && (
+                      <p className="text-[10px] text-primary font-mono truncate max-w-full">
+                        {fileUrl}
+                      </p>
+                    )}
+                  </div>
+
                   <Button
                     type="submit"
                     disabled={loading}

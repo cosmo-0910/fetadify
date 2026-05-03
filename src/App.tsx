@@ -10,23 +10,7 @@ import ServiceDetail from "./pages/ServiceDetail";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
-import { AdminLayout } from "./components/admin/AdminLayout";
-import Login from "./pages/admin/Login";
-import Dashboard from "./pages/admin/Dashboard";
-import ServicesManager from "./pages/admin/ServicesManager";
-import ProjectsManager from "./pages/admin/ProjectsManager";
-import BookingsManager from "./pages/admin/BookingsManager";
-import AIRepliesManager from "./pages/admin/AIRepliesManager";
-import MessagesManager from "./pages/admin/MessagesManager";
-import UsersManager from "./pages/admin/UsersManager";
-import BlogPostsManager from "./pages/admin/BlogPostsManager";
-import AnalyticsManager from "./pages/admin/AnalyticsManager";
-import SubscribersManager from "./pages/admin/SubscribersManager";
-import SupportManager from "./pages/admin/SupportManager";
-import OrdersManager from "./pages/admin/OrdersManager";
-import SettingsManager from "./pages/admin/SettingsManager";
 
-import InvoicesManager from "./pages/admin/InvoicesManager";
 import Pricing from "./pages/Pricing";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -35,7 +19,6 @@ import InvoiceViewer from "./pages/InvoiceViewer";
 import Maintenance from "./pages/Maintenance";
 
 import { ThemeProvider } from "./components/ThemeProvider";
-import TestimonialsManager from "./pages/admin/TestimonialsManager";
 
 import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
@@ -55,11 +38,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
             <Routes>
-              {window.location.hostname.includes("admin") ? (
-                <Route path="/" element={<Navigate to="/admin/login" replace />} />
-              ) : (
-                <Route path="/" element={<Index />} />
-              )}
+              <Route path="/" element={<Index />} />
               
               <Route path="/booking" element={<Booking />} />
               <Route path="/services" element={<ServicesPage />} />
@@ -70,30 +49,14 @@ const App = () => {
             <Route path="/tracker/:id" element={<ProjectTracking />} />
             <Route path="/invoice/:id" element={<InvoiceViewer />} />
             <Route path="/maintenance" element={<Maintenance />} />
-            <Route path="/admin/login" element={<Login />} />
+            <Route path="/maintenance" element={<Maintenance />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/reviews/submit" element={<ReviewSubmission />} />
               
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="projects" element={<ProjectsManager />} />
-                <Route path="services" element={<ServicesManager />} />
-                <Route path="blog" element={<BlogPostsManager />} />
-                <Route path="analytics" element={<AnalyticsManager />} />
-                <Route path="subscribers" element={<SubscribersManager />} />
-                <Route path="support" element={<SupportManager />} />
-                <Route path="orders" element={<OrdersManager />} />
-                <Route path="testimonials" element={<TestimonialsManager />} />
-                <Route path="invoices" element={<InvoicesManager />} />
-                <Route path="messages" element={<MessagesManager />} />
-                <Route path="users" element={<UsersManager />} />
-                <Route path="bookings" element={<BookingsManager />} />
-                <Route path="settings" element={<SettingsManager />} />
-              </Route>
+              {/* Admin Routes moved to Standalone Admin Portal */}
     
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -33,6 +33,7 @@ interface Service {
   display_order: number;
   image_url?: string;
   content?: string;
+  is_custom_price?: boolean;
 }
 
 const ServicesManager = () => {
@@ -48,6 +49,7 @@ const ServicesManager = () => {
   const [displayOrder, setDisplayOrder] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
   const [content, setContent] = useState("");
+  const [isCustomPrice, setIsCustomPrice] = useState(true);
 
   useEffect(() => {
     fetchServices();
@@ -78,6 +80,7 @@ const ServicesManager = () => {
       setDisplayOrder(service.display_order);
       setImageUrl(service.image_url || "");
       setContent(service.content || "");
+      setIsCustomPrice(service.is_custom_price ?? true);
     } else {
       setEditingService(null);
       setTitle("");
@@ -102,6 +105,7 @@ const ServicesManager = () => {
       display_order: displayOrder,
       image_url: imageUrl,
       content,
+      is_custom_price: isCustomPrice,
     };
 
     try {
@@ -245,6 +249,18 @@ const ServicesManager = () => {
                 <Input id="order" type="number" value={displayOrder} onChange={(e) => setDisplayOrder(parseInt(e.target.value))} required />
               </div>
             </div>
+            
+            <div className="flex items-center space-x-2 pt-2">
+              <input 
+                type="checkbox" 
+                id="is_custom_price" 
+                checked={isCustomPrice} 
+                onChange={(e) => setIsCustomPrice(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+              />
+              <Label htmlFor="is_custom_price" className="text-sm font-medium">Mark as "Custom Price / Quote Required"</Label>
+            </div>
+
             <DialogFooter className="pt-4">
               <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               <Button type="submit" disabled={loading}>{editingService ? "Save Changes" : "Create Service"}</Button>
