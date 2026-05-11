@@ -24,11 +24,17 @@ export const useVisitorTracking = () => {
         // Try to get IP address (optional, use a public API)
         let ipAddress = "Unknown";
         try {
-          const response = await fetch("https://api.ipify.org?format=json");
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          
+          const response = await fetch("https://api.ipify.org?format=json", {
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
           const data = await response.json();
           ipAddress = data.ip;
         } catch (ipErr) {
-          console.warn("Could not fetch IP address:", ipErr);
+          console.warn("Could not fetch IP address (timed out or failed):", ipErr);
         }
 
         // Upsert visitor data
