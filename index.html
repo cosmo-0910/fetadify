@@ -33,7 +33,25 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #0b0b0f; color: #fff;">
+        <div style="text-align: center;">
+          <h2 style="color: #3b82f6;">Loading Fetadify...</h2>
+          <p id="diag-msg" style="color: #666; font-size: 14px;">Initializing application bundle...</p>
+          <script>
+            window.onerror = function(msg, url, line, col, error) {
+              document.getElementById('diag-msg').innerHTML = '<span style="color: #ef4444;">Error detected: ' + msg + '</span>';
+              return false;
+            };
+            setTimeout(function() {
+              if (document.getElementById('root').innerHTML.includes('Loading Fetadify')) {
+                document.getElementById('diag-msg').innerHTML = '<span style="color: #f59e0b;">Bundle load-time exceeded. Please check your connection or wait a moment.</span>';
+              }
+            }, 15000);
+          </script>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- Start of Tawk.to Script -->
     <script type="text/javascript">

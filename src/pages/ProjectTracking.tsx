@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { CheckCircle2, Clock, CreditCard, Layout, Milestone, CheckSquare, MessageSquare, Send, ShieldCheck, Lock, Loader2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
